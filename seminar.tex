@@ -13,6 +13,7 @@
 \usepackage{enumitem}
 \usepackage{framed}
 
+
 % Mathmatische Symbole
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\EE}{\mathbb{E}}
@@ -21,11 +22,13 @@
 \newcommand{\FF}{\mathcal{F}}
 \newcommand{\supp}{\operatorname{supp}}
 \newcommand{\ee}{\operatorname{e}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\grad}{\operatorname{grad}}
 
 \newtheorem{defi}{Definition}[section]
 \newtheorem{prop}[defi]{Proposition}
 \newtheorem{theorem}[defi]{Theorem}
-\newtheorem{cor}[defi]{Corollary}
+\newtheorem{cor}[defi]{Corollar}
 \newtheorem{lem}[defi]{Lemma}
 \newtheorem{bem}[defi]{Bemerkung}
 
@@ -51,6 +54,98 @@
 	02.12.2015	
  \end{center}
 
-  
-	
+
+\renewcommand{\thesection}{\arabic{section}}
+\section{Generalisierte Gradientenflüsse}
+
+Wir betrachten folgende partielle Diffgleichung: 
+\begin{eqnarray}
+\dfrac{dX}{dt}=~-\grad E(X) \label{eq1}
+\end{eqnarray}
+$E$ ist hierbei die Energie im Bezug auf den Optimalen Transport, die Diffgl beschreibt z.b. die kinetische Energie von Partikeln. 
+TODO: Räume, was woraus... 
+\newline
+
+Um dieses Problem nicht explizit zu lösen, wollen wir es zeitlich diskretisieren, sodann zum Limes übergehen während unser Zeitschritt gegen Null geht. Dabei können subdifferentiale und tangentenräume schön umgangen werden und der GradientenOperator nicht explizit benutzt werden.
+
+\begin{defi}
+Der approximierte Gradientenfluss für ein Energie-Funktional E in einem abstraktem Metrischen Raum mit einer metric-denoted Distanz sei gegeben durch:
+\newline
+Sei der timestep $\tau > 0$, dann ist die Folge $\left( X^n_\tau \right)_{n\geq 0}$:
+\\
+$X_\tau^0:=X_0,$
+\\
+$X_\tau^{n+1}$ ist der Minimierer (oder ein Minimierer, wir verlangen keine Eindeutigkeit TODO: ex eine lösung?) von 
+\begin{eqnarray}
+\min\left[E(X)+\dfrac{\dist(X_\tau^n,X)^2}{2\tau}\right] \label{Min}
+\end{eqnarray}
+Sei $X_\tau$ auf $\RR_+$ als stückweise konstante Funktion mit Wert $X_\tau(t)=X^n_\tau$ für $t\in [n\tau,(n+1)\tau)$.
+\end{defi}
+
+\begin{bem}
+Betrachtet man den euklidischen Abstand, ist die Euler-Lagrange-Gleichung zu dem Minimierungsproblem (\ref{Min})
+\begin{eqnarray*}
+\dfrac{X_\tau^{n+1}-X_\tau^n}{\tau}=-\grad E(X_\tau^{n+1})
+\end{eqnarray*}
+\end{bem}
+
+Nach Aufstellen der Diskretisierung wollen wir $\tau \to 0$ gehen lassen und betrachten den Grenzwert, den "'generalisierten Gradientenfluss"'.
+Um zu zeigen, dass dieser Grenzwert exisitert und die Ausgangsgleichung erfüllt, müssen dessen Eigenschaften untersucht werden. 
+
+\subsection{Drei Ungleichungen}
+Wir nehmen an, dass $E$ nach unten durch eine absolute Konstante ist, d.h. $E(X)\geq C$ unabh. von $X$.
+\newline
+
+
+$X_\tau^{n+1}$ ist ein Minimierer von dem Funktional $X \mapsto E(X)+\dfrac{\dist(X_\tau^n,X)^2}{2\tau}$, und damit ist offensichtlich das Funktional an $X_\tau^{n+1}$ kleiner gleich dem Wert dessen an der Stelle $X_\tau^n$ (Eigenschaften Metrik: $\dist(X_\tau^n,X_\tau^n)=0$). Damit haben wir
+\begin{eqnarray}
+E(X_\tau^{n+1})+\dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}\leq E(X_\tau^n). \label{ineq1}
+\end{eqnarray} 
+\begin{lem}[Energy estimate]
+\begin{eqnarray}
+\sup_{n\geq 0}E(X_\tau^n)\leq E(X^0) \label{enest}
+\end{eqnarray}
+\end{lem}
+\begin{proof}
+Folgt sofort aus (\ref{ineq1}), da der zweite Term nichtnegativ und somit die Folge der $(E(X_\tau^n)$ für n monoton abnehmend ist. 
+\end{proof}
+
+\begin{lem}[total square distance estimate]
+\begin{eqnarray}
+\sum_{n\geq 0}\dist(X_\tau^n,X_\tau^{n+1})^2\leq 2\tau (E(X^0)-\inf E)\label{totalsquare}
+\end{eqnarray}
+\end{lem}
+\begin{proof}
+Summation über (\ref{ineq1})
+\end{proof}
+
+\begin{bem}
+Daraus kann auch eine Hölder 1/2-Abschätzung für $X_\tau$ abgeleitet werden: für $s<t$ gilt:
+\begin{eqnarray}
+\dist(X_\tau(s),X_\tau(t))^2 \leq \left[\dfrac{t-s}{\tau}+1\right] \sum_{\frac{s}{\tau}\leq n \leq \frac{t}{\tau}} \dist (X^n_\tau, X_\tau^{n+1})^2 \leq C[(t-s)+\tau], \label{Hölder}
+\end{eqnarray}
+wobei $C=2[E(X^0)-\inf E]$.
+\\ 
+Folgt aus Dreiecksunglichung für $W_2$ und Cauchy-Schwarz.
+\end{bem}
+ 
+\begin{lem}[Energy gradient estimate]
+Sei eine zugrundeliegende Riemannstruktur gegeben und das Energie Funktional hinreichend glatt. Dann gilt 
+\begin{eqnarray}
+\tau \sum_{n\geq 0} \Vert\grad E(X_\tau^n)\Vert^2 \leq 2[E(X^0)-\inf E]
+\end{eqnarray}
+bzw. im kontinuierlichen Falle:
+\begin{eqnarray}
+\int_0^\infty \Vert\grad E(X_\tau^n)\Vert^2 dt\leq 2[E(X^0)-\inf E]
+\label{Engrad}
+\end{eqnarray}
+\end{lem}
+\begin{proof}
+
+\end{proof}
+\begin{bem}
+Die kontinueriliche Funktion gilt sogar in einer nicht-Riemanschen Situation mit einer passenden Definition der Norm des Gradienten. (todo: riemann setting häh?) 
+\end{bem}
+
+\section{Anwendung auf das Monge-Kantorovich Problem}
 \end{document}
