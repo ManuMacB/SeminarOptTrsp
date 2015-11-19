@@ -46,15 +46,20 @@
 %\tableofcontents
 %\newpage
 
-\pagestyle{empty}
+\pagestyle{plain}
 
-\begin{center}
-  {\huge{tolles referat}} \\
-	Manuela Lambacher \\
-	02.12.2015	
+
+
+ Prof. Dr. Matthes \hfill Manuela Lambacher\\
+ Optimaler Transport - Geometrie und Anwendungen \hfill xx.12.2015
+ \begin{center}
+  {\huge{tolles referat}} 
  \end{center}
-
-
+ 
+ \hrule
+ 
+\numberwithin{equation}{section}
+\renewcommand{\thechapter}{\arabic{section}}
 \renewcommand{\thesection}{\arabic{section}}
 \section{Generalisierte Gradientenflüsse}
 
@@ -141,11 +146,59 @@ bzw. im kontinuierlichen Falle:
 \end{eqnarray}
 \end{lem}
 \begin{proof}
-
+Sei $\omega$ ein beliebiger Tangentenvektor auf $X_\tau^{n+1}$. Definiere für ein kleines $\varepsilon>0$ einen "'Pfad"' $\tilde{X}_\varepsilon$ folgendermaßen:\\
+\begin{eqnarray}
+\tilde{X}_0=X_\tau^{n+1},~~\dfrac{d\tilde{X}_\varepsilon}{d\varepsilon}\Bigg|_{\varepsilon=0} =\omega
+\end{eqnarray}
+Da $X_\tau^{n+1}$ Minimierer ist, gilt offensichtlich
+\begin{eqnarray}
+E(X_\tau^{n+1})+\dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}\leq E(\tilde{X}_\varepsilon)+\dfrac{\dist(X_\tau^n,\tilde{X}_\varepsilon)^2}{2\tau}~~~\forall \varepsilon>0 \label{a)}
+\end{eqnarray}
+Unter der Annahme, dass das Energiefunktional glatt ist, gilt:
+\begin{eqnarray}
+E(\tilde{X}_\varepsilon)=E(X_\tau^{n+1})+\varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2) \label{b)}
+\end{eqnarray}
+Außerdem gilt:
+\begin{align*}
+\dist (X_\tau^n,\tilde{X}_\varepsilon)^2-\dist(X_\tau^n,X_\tau^{n+1})^2\\
+=\left(\dist(X_\tau^n,\tilde{X}_\varepsilon)+\dist(X_\tau^n,X_\tau^{n+1})\right)\left(\dist(X_\tau^n,\tilde{X}_\varepsilon)-\dist(X_\tau^n,X_\tau^{n+1})\right)\\
+\leq \left(\dist(X_\tau^n,\tilde{X}_\varepsilon)+\dist(X_\tau^n,X_\tau^{n+1})\right)\dist(X_\tau^{n+1},\tilde{X}_\varepsilon) \\
+\leq\left(2\dist(X_\tau^n,X_\tau^{n+1}+\dist(X_\tau^{n+1},\tilde{X}_\varepsilon)\right)\dist(X_\tau^{n+1},\tilde{X}_\varepsilon)
+\end{align*}
+Wir wissen, dass \[\dist(X_\tau^{n+1},\tilde{X}_\varepsilon)=\varepsilon\Vert \omega \Vert + o(\varepsilon) \].
+Damit wird aus obiger Gleichung
+\begin{eqnarray}
+\dfrac{\dist(X_\tau^n,\tilde{X}_\varepsilon)^2}{2\tau}\leq \dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}+\varepsilon\dist(X_\tau^n,X_\tau^{n+1})\dfrac{\Vert \omega \Vert}{\tau} + o(\varepsilon) \label{c)}
+\end{eqnarray}
+\\
+Jetzt kombinieren wir die drei Aussagen \ref{a)}\ref{b)}\ref{c)}: Dazu setzen wir zunächst \ref{b)}in \ref{a)}ein.
+\begin{align*}
+E(X_\tau^{n+1})+\dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}\leq E(X_\tau^{n+1})+\varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2)+\dfrac{\dist(X_\tau^n,\tilde{X}_\varepsilon)^2}{2\tau}
+\\
+\Rightarrow \dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}\overset{\ref{c)}}{\leq} \varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2)+ \dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}+\varepsilon\dist(X_\tau^n,X_\tau^{n+1})\dfrac{\Vert \omega \Vert}{\tau} + o(\varepsilon)\\
+\Rightarrow 0\leq \varepsilon \left(\langle \grad E(X_\tau^{n+1}),\omega\rangle)+\dist(X_\tau^n,X_\tau^{n+1})\dfrac{\Vert \omega \Vert}{\tau} +\underset{\to 0 \text{ für } \varepsilon \to 0} {\underbrace{\dfrac{o(\varepsilon)}{\varepsilon}+\dfrac{O(\varepsilon^2)}{\varepsilon}}} \right)
+\end{align*}
+Nun wählen wir das explizite $\omega=-\grad E(X_\tau^{n+1})$ (warum ist das im geforderten raum?)
+\begin{align*}
+0\leq \underset{-\Vert \grad E(X_\tau^{n+1}) \Vert^2}{\underbrace{\langle \grad E(X_\tau^{n+1}),-\grad E(X_\tau^{n+1}\rangle)}}+\dfrac{\dist(X_\tau^n,X_\tau^{n+1})\Vert \grad E(X_\tau^{n+1}) \Vert}{\tau}\\
+\Rightarrow \dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{\tau^2} \geq \Vert \grad E(X_\tau^{n+1}) \Vert^2
+\end{align*}
+In Verbindung mit der square distance estimate (\ref{totalsquare}) kommen wir schließlich zu der geforderten Gleichung:
+\begin{equation}
+ 2\tau (E(X^0)-\inf E)\geq \sum_{n\geq 0} \dist(X_\tau^n,X_\tau^{n+1})^2 \geq \tau^2 \sum_{n\geq 1} \Vert \grad E(X_\tau^n)\Vert^2
+\end{equation}
+TODO: warum kann ich den term für n=0 auch mitnehmen? also summe über $n\geq 0$?
 \end{proof}
 \begin{bem}
 Die kontinueriliche Funktion gilt sogar in einer nicht-Riemanschen Situation mit einer passenden Definition der Norm des Gradienten. (todo: riemann setting häh?) 
 \end{bem}
 
+Diese drei Abschätzungen sollten die relative Kompaktheit von $(X_\tau)$ für $\tau \to 0$ sicherstellen. \\
+Um aber zum Limes überzugehen, müssen wir ein dem letzten Beweis ähnliches Prozedere unterlaufen: Kleine perturbationen, $\omega$ beliebig lassen. Eine approximierte euler-lagrange-gl finden. siehe nächstes kapteil. außerdem: ???? 
 \section{Anwendung auf das Monge-Kantorovich Problem}
+Die oben erwähnte Strategie wurde zum ersten mal am Beispiel der linearen Fokker-Plank-Gleichung angewandt. Dies liefert interessante EInblicke in die Methode. Die übrigens auch implementiert werden kann. 
+\begin{eqnarray}
+x
+\end{eqnarray}
+
 \end{document}
