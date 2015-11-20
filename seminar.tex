@@ -196,9 +196,67 @@ Die kontinueriliche Funktion gilt sogar in einer nicht-Riemanschen Situation mit
 Diese drei Abschätzungen sollten die relative Kompaktheit von $(X_\tau)$ für $\tau \to 0$ sicherstellen. \\
 Um aber zum Limes überzugehen, müssen wir ein dem letzten Beweis ähnliches Prozedere unterlaufen: Kleine perturbationen, $\omega$ beliebig lassen. Eine approximierte euler-lagrange-gl finden. siehe nächstes kapteil. außerdem: ???? 
 \section{Anwendung auf das Monge-Kantorovich Problem}
-Die oben erwähnte Strategie wurde zum ersten mal am Beispiel der linearen Fokker-Plank-Gleichung angewandt. Dies liefert interessante EInblicke in die Methode. Die übrigens auch implementiert werden kann. 
+Die oben erwähnte Strategie wurde zum ersten mal am Beispiel der linearen Fokker-Plank-Gleichung angewandt. Dies liefert interessante EInblicke in die Methode. Die übrigens auch implementiert werden kann. \\
+
+setting: \\
+Betrachte das Energie-Funktional \[E(\rho)=\int \rho \log \rho + \int\rho V\] auf $P(\RR^k)$, wobei $V(x)$ ein glattes Potential (??) ist, das folgende Wachstumsbedingung erfüllt: $V(x)=O(\vert x \vert^2)$ für $x\to\infty$.\\
+Sei $\rho_0$ eine Wahrscheinlichkeitsdichte als Anfangswert mit endlichem $E(\rho)$.\\
+Sei weiterhin $\tau>0$ und definiere sodann die Folge $(\rho_\tau^n)$ analog zu Punkt 1 des Vortrages:\\
+
+\[\rho_\tau^0=\rho^0; \]
+gegeben $\rho_\tau^n$ definiere den nächsten Schritt als Minimierer von
+\begin{equation*} \rho \mapsto E(\rho)+\dfrac{W_2(\rho_\tau^n,\rho)^2}{2\tau}
+\end{equation*}
+Da E strikt konvex im üblichen Sinne ist (displacement konvex nur wenn V konvex ist), ebenso wie die Wassersteinmetrik, und damit ist unser Minimierer eindeutig. \\
+Wie im vorherigen Abschnitt kann man eine uniform control über $\sup_{t\geq 0} E(\rho_\tau(t))$ erlangen, die einem die tightness der familie $(rho_\tau)_{\tau >0}$ in der x-varibale sowie schwache $L^1$-kompaktheit garantiert. \\
+Die approximate Hölder 1/2 continuity estimate in der quadraticshen wasserstein distanz sichert die approximative uniforme equikontinuität in zeit von $(\rho_\tau)_\tau$. All dies ist hinreichend um (betrachte evtl subsequence $(\tau_k)_k$) $(\rho_\tau)_\tau$ zu einer Funktion $\rho: \RR_+ \mapsto P_{ac}(\RR^n)$ konvergiert, stetig falls $P_{ac}(\RR^n)$ mit der schwachen $L^1$-Topologie verknüft ist. \\
+Um nun den Grenzewrt zu betrachten, brauche nwir eine geeignete Variation von $\rho_\tau^{n+1}$.\\
+Sei $\xi$ ein glattes Vektorfeld mit kompaktem Träger, und $T_\varepsilon$ die Familie von Trajektoren verknüpft mit dem Vektorfeld $\operatorname{Id} +\varepsilon\xi$. Dann definiere
+\[\tilde{\rho}_\varepsilon=T_\varepsilon \#\rho_\tau^{n+1} \]
+Für $\varepsilon$ klein genug ist $T_\varepsilon$ ein $C^1$-diffeomorphismus (fixed point theoren und $\det(\nabla T_\varepsilon)>0$.\\
+Nach Definition gilt:
 \begin{eqnarray}
-x
+E(\tilde{\rho}_\varepsilon)=&\int\tilde{\rho}_\varepsilon\log\tilde{\rho}_\varepsilon+\int\tilde{\rho}_\epsilon V\\
+=&\int \rho_\tau^{n+1}\log\dfrac{\rho_\tau^{n+1}}{\det(I_k+\varepsilon \nabla \xi)}+\int \rho_\tau^{n+1}(x)V(x+\varepsilon\xi(x))dx.
 \end{eqnarray}
+Aus der energy estimate folgt andererseits, dass $\rho_\tau^n, \rho_\tau^{n+1}$ absolut stetig sind. Damit existert eine optimale Abbildung $\nabla \phi$ s.t. $\nabla \phi \# \rho_\tau^n=\rho_\tau^{n+1}$ und es gilt
+\begin{equation*}
+W_2(\rho_\tau^n,\tilde{\rho}_\varepsilon)^2 \leq \int \rho_\tau^n(x)\vert x-\nabla \phi(x)-\varepsilon\xi\circ\nabla\phi(x)\vert^2dx
+\end{equation*}
+Damit kommen wir auf
+\begin{align}
+\dfrac{W_2(\rho_\tau^n,\tilde{\rho}_\varepsilon)^2}{2\tau}&+E(\tilde{\rho}_\varepsilon)-\dfrac{W_2(\rho_\tau^n,\rho_\tau^{n+1})^2}{2\tau}-E(\rho_\tau^{n+1})\\
+\leq\int&\rho_\tau^n(x)\left(\dfrac{\vert x-\nabla \phi(x)-\varepsilon\xi\circ\nabla\phi(x)\vert^2-\vert x-\nabla\phi(x)\vert^2}{2\tau}\right)dx\\
++&\int\rho_\tau^{n+1}(x)[V(x+\varepsilon\xi(x))-V(x)]dx-\int\rho_\tau^{n+1}(x)\log \det(\operatorname{Id}+\varepsilon\nabla\xi(x))dx\geq 0
+\end{align}
+wobei die nichtnegativität der linken Seite aus der Minimierungseigenschaft von $\rho_\tau^{n+1}$ folgt.
+Dividiere durch $\varepsilon$ und lasse dieses gegen $0^+$ gehen, so bekommen wir: 
+\begin{align*}
+0\leq\frac{1}{\tau} \int \rho_\tau^n(x)\left\langle\nabla\phi(x)-x,\xi\circ\nabla\phi(x)\right\rangle dx+\int\rho_\tau^{n+1}(x)\langle\nabla V(x),\xi(x)\rangle dx\\-\int\rho_\tau^{n+1}(x)(\nabla\cdot \xi)(x)dx
+\end{align*}
+Da dies genauso für $-\xi$ gilt, bekommen wir Gleichheit. Umforuliert:
+\begin{equation}
+\frac{1}{\tau} \int \rho_\tau^n(x)\left\langle\nabla\phi(x)-x,\xi\circ\nabla\phi(x)\right\rangle dx\\=\int\rho_\tau^{n+1}(x)\left[(\nabla\cdot \xi)(x)-\langle\nabla V(x),\xi(x)\rangle \right]dx \label{eqwithxi}
+\end{equation}
+
+Jetzt sei $\xi$ derart, dass für ein $\zeta\in\mathcal{D}(\RR^n)$ gilt $\xi=\nabla\zeta$. Es gilt (erweiterung):
+\begin{equation}
+\zeta(\nabla\phi(x))-\zeta(x)=\left\langle\nabla\phi(x)-x,\nabla\zeta\circ\nabla\phi(x)\right\rangle+O(\vert x-\nabla\phi(x)\vert^2
+\end{equation}
+und damit kann die linke Seite von (\ref{eqwithxi})ersetzt werden durch
+\begin{align*}
+\frac{1}{\tau}\left(\int \rho_\tau^n(x)\zeta\circ\nabla\phi(x)dx-\int\rho_\tau^n(x)\zeta(x)dx\right)+O\left(\frac{1}{\tau}\int\rho_\tau^n(x)\vert x-\nabla\phi(x)\vert^2dx\right)\\
+=\frac{1}{\tau}\left(\int\rho_\tau^{n+1}\zeta-\int\rho_\tau^n\zeta\right)+O\left(\dfrac{W_2(\rho_\tau^n,\rho_\tau^{n+1})^2}{\tau}\right)
+\end{align*}
+Setzt dies in(\ref{eqwithxi}) ein und  nun wird aufsummiert für $t_1,t_2$ beliebige Zeiten von $n_1=[t_1/\tau]$ bis zu $n_2=[t_2/\tau]$:
+\begin{eqnarray}
+\int\rho_\tau(t_2)\zeta-\int\rho_\tau(t_1)\zeta+O\left(\sum_{n=n_1}^{n_2}W_2(\rho_\tau^n,\rho_\tau^{n+1})^2\right)\\
+=\int_{t_1}^{t_2}\int\rho_\tau(t)(\nabla\zeta-\nabla V\cdot\nabla\zeta)dt+O8\tau)
+\end{eqnarray}
+Wobei wir benutzt haben, dass $\nabla\zeta$ und $\nabla V\cdot\nabla\zeta$ beschränkte Funktionien sind und $\rho_\tau(t)=\rho_\tau(t,\cdot)$ Wahrscheinlichkeitsmaß auf $\RR^n$
+
+
+
+
 
 \end{document}
