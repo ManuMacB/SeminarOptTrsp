@@ -253,10 +253,30 @@ Setzt dies in(\ref{eqwithxi}) ein und  nun wird aufsummiert für $t_1,t_2$ belie
 \int\rho_\tau(t_2)\zeta-\int\rho_\tau(t_1)\zeta+O\left(\sum_{n=n_1}^{n_2}W_2(\rho_\tau^n,\rho_\tau^{n+1})^2\right)\\
 =\int_{t_1}^{t_2}\int\rho_\tau(t)(\nabla\zeta-\nabla V\cdot\nabla\zeta)dt+O8\tau)
 \end{eqnarray}
-Wobei wir benutzt haben, dass $\nabla\zeta$ und $\nabla V\cdot\nabla\zeta$ beschränkte Funktionien sind und $\rho_\tau(t)=\rho_\tau(t,\cdot)$ Wahrscheinlichkeitsmaß auf $\RR^n$
+Wobei wir benutzt haben, dass $\nabla\zeta$ und $\nabla V\cdot\nabla\zeta$ beschränkte Funktionien sind und $\rho_\tau(t)=\rho_\tau(t,\cdot)$ Wahrscheinlichkeitsmaß auf $\RR^n$.\\\\
+Jetzt benutzen wir die total square estimate wrt $W_2$ und deduzieren für alle fixed $t_1,~t_2$:
+\begin{equation}
+\int\rho_\tau(t_2)\zeta-\int\rho_\tau(t_1)\zeta+O(\tau)=\int_{t_1}^{t_2}\int\rho_\tau(t)(\nabla\zeta-\nabla V\cdot\nabla\zeta)dt+O(\tau)
+\end{equation}
+Grenzwert $\tau\to 0$:
+\begin{equation}
+\int\rho(t_2)\zeta-\int\rho(t_1)\zeta=\int_{t_1}^{t_2}\int\rho(t)(\nabla\zeta-\nabla V\cdot\nabla\zeta)dt
+\end{equation}
+die schwache Formulierng der linearen Fokker-Planck-Gleichung mit Potential V, d.h.
+\begin{equation}
+\dfrac{\partial\rho}{\partial t}=\nabla\rho+\nabla\cdot(\rho\nabla V)
+\end{equation}
+Diese Gleichung ist erfüllt bei jedem "'weak cluster point'" der Folge $(\rho_\tau)$; da es eine eindeutige Lösung annimmt, muss diese Lösung der Grenzwert für $\tau\to 0$ sein.
 
+Damit ist bewiesen:
+\begin{theorem}
+Für den Zeitschritt $\tau\to 0$ konvergiert die Lösung des Zeit-diskretisierten Gradienten gegen die Lösung der linearen Fokker-Planck-Gleichung mit Anfangswert $\rho_0$.\\
+Damit gilt: Die Fokker-Planck-Gleichung ist der Graidentenfluss für das freie EnergieFunktional mit der Wassersteindistanz.
+\end{theorem}
 
+\begin{bem}
+\end{bem}
 
-
+\section{stuff}
 
 \end{document}
