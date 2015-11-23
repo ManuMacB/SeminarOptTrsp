@@ -142,12 +142,11 @@ Für $s<t$ gilt:
 \begin{proof}
 \begin{itemize}
 \item[2)] folgt wiederum aus Aufsummation von (\ref{ineq1}) und Monotonie.
-\item[1)] Nach Definition: $X_\tau(s)=X_\tau^n$ für $s\in [n\tau,(n+1)\tau)$. Damit gilt für $n$: $n=\lfloor \frac{s}{	\tau}\rfloor$. Analog sei $X_\tau(t)=X_\tau^m$, $m=\lfloor\frac{t}{\tau}\rfloor$.\\
+\item[1)] Nach Definition: $X_\tau(s)=X_\tau^n$ für $s\in [n\tau,(n+1)\tau)$. Damit gilt für $n$: $n=\lfloor \frac{s}{	\tau}\rfloor$. Analog sei $X_\tau(t)=X_\tau^m$, $m=\lfloor\frac{t}{\tau}\rfloor+1$.\\
 \begin{align*}
-\dist(X_\tau(s),X_\tau(t))=&\dist(X_\tau^2,X_\tau^m)\\\overset{\triangle -Ungl.}\leq&\dist(X_\tau^n,X_\tau^{n+1})+\dist(X_\tau^{n+1},X_\tau^{n+2})+...+\dist(X_\tau^{m-1},X_\tau^m)\\
-=&\sum_{n\leq k\leq m-1}\dist(X_\tau^k,X_\tau^{k+1})\leq \sum_{n\leq k\leq m}\dist(X_\tau^k,X_\tau^{k+1})
+\dist(X_\tau(s),X_\tau(t))=&\dist(X_\tau^n,X_\tau^m)\\\overset{\triangle -Ungl.}\leq&\dist(X_\tau^n,X_\tau^{n+1})+\dist(X_\tau^{n+1},X_\tau^{n+2})+...+\dist(X_\tau^{m-1},X_\tau^m)\\
+=&\sum_{n\leq k\leq m-1}\dist(X_\tau^k,X_\tau^{k+1})
 \end{align*}
-Anm: warum wird im Buch die höhere Grenze für k genommen?\\
 \begin{align*}
 \dist(X_\tau(s)-X_\tau(t))^2\leq\left(\sum_{\frac{s}{\tau}\leq k\leq \frac{t}{\tau}}\dist(X_\tau^k,X_\tau^{k+1})\right)^2 \\ \overset{CS}\leq\left(\sum_{\frac{s}{\tau}\leq k\leq \frac{t}{\tau}}\dist(X_\tau^k,X_\tau^{k+1})^2\right)\underset{\frac{t}{\tau}-(\frac{s}{\tau}-1)}{\underbrace{\left(\sum_{\frac{s}{\tau}\leq k\leq \frac{t}{\tau}}1\right)}}
 \end{align*}
@@ -171,19 +170,19 @@ Sei $\omega$ ein beliebiger Tangentenvektor auf $X_\tau^{n+1}$. Wir betrachten P
 \begin{eqnarray}
 \tilde{X}_0=X_\tau^{n+1},~~\dfrac{d\tilde{X}_\varepsilon}{d\varepsilon}\Bigg|_{\varepsilon=0} =\omega
 \end{eqnarray}
-(Also $\lim_{\varepsilon\to 0}\frac{\tilde{X}_\varepsilon-\tilde{X}_0}{\tau}=\omega$)\\
 Da $X_\tau^{n+1}$ Minimierer ist, gilt offensichtlich
 \begin{eqnarray}
 E(X_\tau^{n+1})+\dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}\leq E(\tilde{X}_\varepsilon)+\dfrac{\dist(X_\tau^n,\tilde{X}_\varepsilon)^2}{2\tau}~~~\forall \varepsilon>0 \label{a)}
 \end{eqnarray}
-Unter der Annahme, dass das Energiefunktional glatt ist, gilt mit Taylor:
+Unter der Annahme, dass das Energiefunktional glatt ist, gilt, jeweils mit Taylor:
 \begin{eqnarray}
+\tilde{X}_\varepsilon = X_0+\dfrac{d\tilde{X}_\varepsilon}{d\varepsilon}\Bigg|_{\varepsilon=0}\cdot\varepsilon+O(\varepsilon^2),\\
 \begin{split}
-E(\tilde{X}_\varepsilon)=E(X_0)+\langle\grad E(X_0),\underset{\sim\omega\varepsilon}{\underbrace{X_\varepsilon -X_0}}\rangle+O((X_\varepsilon-X_0)^2)\\
-=E(X_\tau^{n+1})+\varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2) \label{b)}
+E(\tilde{X}_\varepsilon)=&E(X_0)+\langle\grad E(X_0),\underset{\omega\varepsilon+O(\varepsilon^2)}{\underbrace{\tilde{X}_\varepsilon -X_0}}\rangle+O((\tilde{X}_\varepsilon-X_0)^2)\\
+=&E(X_\tau^{n+1})+\varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2) \label{b)}
 \end{split}
 \end{eqnarray}
-O oder o?\\
+
 Außerdem gilt:
 \begin{align*}
 \dist (X_\tau^n,&\tilde{X}_\varepsilon)^2-\dist(X_\tau^n,X_\tau^{n+1})^2=\\
@@ -197,7 +196,7 @@ Damit wird aus obiger Gleichung
 \dfrac{\dist(X_\tau^n,\tilde{X}_\varepsilon)^2}{2\tau}\leq \dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}+\varepsilon\dist(X_\tau^n,X_\tau^{n+1})\dfrac{\Vert \omega \Vert}{\tau} + o(\varepsilon) \label{c)}
 \end{eqnarray}
 \\
-Jetzt kombinieren wir die drei Aussagen (\ref{a)}),(\ref{b)}) und (\ref{c)}): Dazu setzen wir zunächst (\ref{b))} in (\ref{a)}) ein.
+Jetzt kombinieren wir die drei Aussagen (\ref{a)}),(\ref{b)}) und (\ref{c)}): Dazu setzen wir zunächst (\ref{b)}) in (\ref{a)}) ein.
 \begin{align*}
 E&(X_\tau^{n+1})+\dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}\leq E(X_\tau^{n+1})+\varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2)+\dfrac{\dist(X_\tau^n,\tilde{X}_\varepsilon)^2}{2\tau}
 \\
@@ -231,14 +230,14 @@ Die hergeleitete Strategie wurde zum ersten Mal am Beispiel der linearen Fokker-
 Die \textbf{lineare Fokker-Planck-Gleichung} (LFP) mit glattem Potential $V(x):\RR^n\to[0,\infty)$ und Anfangswert $\rho_0$, Wahrscheinlichkeitsdichte auf $\RR^n$ ist gegeben durch:
 \begin{eqnarray}
 \begin{split}
-\dfrac{\partial\rho}{\partial t}=\nabla\rho+\nabla\cdot(\rho\nabla V),\\
+\dfrac{\partial\rho}{\partial t}=\Delta\rho+\nabla\cdot(\rho\nabla V),\\
 \rho(0)=\rho_0.\label{FP}
 \end{split}
 \end{eqnarray}
 Alle Lösungen $\rho(x,t)$ sind ebenfalls Wahrscheinlichkeitsdichten auf $\RR^n$ für fast alle $t$ fest, d.h. $\rho(x,t)\geq 0$ für fast alle $(x,t)\in \RR^n\times(0,\infty)$  und $\int_{\RR^n}\rho(x,t)dx=1$ für fast alle $t\in(0,\infty)$
 Eine Wahrscheinlichkeitsdichte $\rho$ erfüllt die (LFP) im schwachen Sinne, falls für alle Testfunktionen $\zeta$ gilt:
 \begin{equation}
-\int_X \int_T (\rho\nabla\zeta+\rho\nabla V\nabla\cdot\zeta -\rho\zeta_t) dt dx=\int\rho_0\zeta(x,0)dx \label{FPweak}
+\int_X \int_T (\rho\Delta\zeta+\rho\nabla V\cdot\nabla\zeta -\rho\zeta_t) dt dx=\int\rho_0\zeta(x,0)dx \label{FPweak}
 \end{equation}
 \end{defi}
 
@@ -255,7 +254,7 @@ Wir konstruieren ein zeitlich diskretisiertes, iteratives variationelles Verfahr
 \begin{defi}
 Für eine Wahrscheinlichkeitsdichte $\rho\in P(\RR^n)$ und ein hinreichend glattes Potential V sei das \textbf{Freie Energie Funktional $E(\rho)$} gegeben durch:
 \begin{equation}
-E(\rho):=\int_{\RR^n} \rho\log\rho dx + \int_{\rho}\rho V dx \label{FEFktn}
+E(\rho):=\int_{\RR^n} \rho\log\rho dx + \int_{\\RR^n}\rho V dx \label{FEFktn}
 \end{equation}
 \end{defi}
 
@@ -269,12 +268,11 @@ Wir wollen die Beziehung zwischen Fokker-Planck und dem freien Energie-Funktiona
 
 Wiederholung:
 \begin{defi}
-Seien $f,g\in\mathcal{P}(\RR^n)$ zwei Wahrscheinlichkeitsmaße (Notation: bzw. ihre assoziierten Wahrscheinlichkeitsdichten.)\\
-Die 2-te euklidische Wassersteindistanz $W_2(f,g)$ zwischen $f$ und $g$ ist wie folgt definiert:
+Seien $f,g\in\mathcal{P}(\RR^n)$ zwei Wahrscheinlichkeitsmaße (Notation: bzw. ihre assoziierten Wahrscheinlichkeitsdichten.)
 \begin{equation}
 W_2(f,g):=\inf_{\pi \in \Pi(f,g)} \left\{ \int_{\RR^n\times\RR^n} \vert x-y \vert^2 d\pi(x,y)\right\}^\frac{1}{2}.\label{W2}
 \end{equation}
-$\Pi(f,g)$ bezeichnet hier die Menge aller multivariaten Wahrscheinlichkeitsmaße auf $\RR^n \times \RR^n$ mit Randverteilungen f und g.
+$\Pi(f,g)$: Menge aller multivariaten Wahrscheinlichkeitsmaße auf $\RR^n \times \RR^n$ mit Randverteilungen f und g.
 \end{defi}
 Da die Wassersteinmetrik zusammen mit dem Raum aller Wahrscheinlichkeitsmaße aber keine Riemann'sche Mannigfaltigkeit ist, müssen wir zeitlich analog zum ersten Teil des Vortrags diskretisieren, damit der Gradient Sinn macht.\\
 
@@ -300,21 +298,21 @@ Damit gilt: Die Fokker-Planck-Gleichung ist der Gradientenfluss für das Freie-E
 \begin{enumerate}
 \item Da E strikt konvex im üblichen Sinne ist, ebenso wie die Wassersteinmetrik, ist der Minimierer in (\ref{rho^n})  eindeutig. 
 \item Analog zu (\ref{enest}) erhält man eine obere Grenze für unser Funktional: $\sup_{t\geq 0} E(\rho_\tau(t))=\sup_n E(\rho_\tau^n)\leq E(\rho_0)$
-Dies garantiert die Dichtheit der Familie $(\rho_\tau)_{\tau >0}$ in der x-Variable sowie schwache $L^1$-Kompaktheit- 
+Dies garantiert die Straffheit der Familie $(\rho_\tau)_{\tau >0}$ in der x-Variable sowie schwache $L^1$-Kompaktheit- 
 \item Die approximate Hölder 1/2 Ungleichung (\ref{Hölder}) hinsichtlich der Wassersteindistanz sichert die approximative uniforme equikontinuität in zeit von $(\rho_\tau)_\tau$. \\
-$\Rightarrow$ All dies ist hinreichend, damit(betrachte falls nötig Teilfolge $(\tau_k)_k$) $(\rho_\tau)_\tau$ zu einer Funktion $\rho: \RR_+ \mapsto P(\RR^n)$ konvergiert, stetig falls $P(\RR^n)$ mit der schwachen $L^1$-Topologie verknüpft ist. \\
+$\Rightarrow$ All dies ist hinreichend, damit(betrachte falls nötig Teilfolge $(\tau_k)_k$) $(\rho_\tau)_\tau$ zu einer Funktion $\rho: \RR_+ \mapsto P_{ac}(\RR^n)$ konvergiert, stetig falls $P_{ac}(\RR^n)$ mit der schwachen $L^1$-Topologie verknüpft ist. \\
 \item Erfüllt nun dieser Grenzwert den Satz, d.h. die (LFK)? \\
 Wir betrachten eine geeignete Variation von $\rho_\tau^{n+1}$.\\
-Sei $\xi$ ein glattes Vektorfeld mit kompaktem Träger, und $T_\varepsilon$ die Familie von Trajektoren verknüpft mit dem Vektorfeld $\operatorname{Id} +\varepsilon\xi$. Dann definiere
+Sei $\xi$ ein glattes Vektorfeld mit kompaktem Träger, und $T_\varepsilon$ eine Familie von Kurven verknüpft mit dem Vektorfeld $\operatorname{Id} +\varepsilon\xi$. Dann definiere folgende Interpolation ($\rightarrow$ Verbindung zu Vortrag Alex Book)
 \[\tilde{\rho}_\varepsilon=T_\varepsilon \#\rho_\tau^{n+1} \]
 Pushforward: $(\tilde{\rho}_\varepsilon \mathcal{L}^k)(B)=(\rho_\tau^{n+1}L^k)(T_\varepsilon^{-1}(B))$\\
 Für $\varepsilon$ klein genug ist $T_\varepsilon$ ein $C^1$-diffeomorphismus (fixed point theoren und $\det(\nabla T_\varepsilon)>0$) und invertierbar.\\
-\item Es gilt aufgrund der Invertierbarkeit von $T_\varepsilon$ und Dichtheit von $p_\tau^{n+1}$ mithilfe von Substitution (siehe Skript Optimal Transport, Savarè)  
+\item Es gilt aufgrund der Invertierbarkeit von $T_\varepsilon$ und Dichtheit von $p_\tau^{n+1}$ mithilfe von Substitution (siehe Skript Optimal Transport, Savarè, und Vortrag Alex Book)  
 \begin{eqnarray}
 E(\tilde{\rho}_\varepsilon)=&\int\tilde{\rho}_\varepsilon\log\tilde{\rho}_\varepsilon+\int\tilde{\rho}_\epsilon V\\
-=&\int \rho_\tau^{n+1}\log\dfrac{\rho_\tau^{n+1}}{\det(\operatorname{Id}+\varepsilon \nabla \xi)}+\int \rho_\tau^{n+1}(x)V(x+\varepsilon\xi(x))dx.
+=&\int \rho_\tau^{n+1}\log\dfrac{\rho_\tau^{n+1}}{\det(I_k\varepsilon \nabla \xi)}+\int \rho_\tau^{n+1}(x)V(x+\varepsilon\xi(x))dx.
 \end{eqnarray}
-\item Aus der energy estimate folgt andererseits, dass $\rho_\tau^n, \rho_\tau^{n+1}$ absolut stetig (bzgl. was? $\rho_0$?) sind. Damit (Brenier?) existert eine bzgl. der Wassersteinmetrik optimale Abbildung $\nabla \phi$ s.t. $\nabla \phi \# \rho_\tau^n=\rho_\tau^{n+1}$, also gilt (nach Def. $W_2$, bzw. s. Savarè)
+\item Aus der energy estimate folgt andererseits, dass $\rho_\tau^n, \rho_\tau^{n+1}$ absolut stetig (bzgl. Lebesgue-maß)) sind. Damit (Brenier?) existert eine bzgl. der Wassersteinmetrik optimale Abbildung $\nabla \phi$ s.t. $\nabla \phi \# \rho_\tau^n=\rho_\tau^{n+1}$, also gilt
 \begin{equation}
 W_2(\rho_\tau^n,\rho_\tau^{n+1})^2=\int \rho_\tau^n(x)\vert x-\nabla\phi(x)\vert^2 dx.
 \end{equation}
@@ -327,7 +325,7 @@ Damit kommen wir auf
 \begin{align}
 0\leq\dfrac{W_2(\rho_\tau^n,\tilde{\rho}_\varepsilon)^2}{2\tau}&+E(\tilde{\rho}_\varepsilon)-\dfrac{W_2(\rho_\tau^n,\rho_\tau^{n+1})^2}{2\tau}-E(\rho_\tau^{n+1})\\
 \overset{\log(\frac{a}{b})=\log a-\log b}\leq&\int\rho_\tau^n(x)\left(\dfrac{\vert x-\nabla \phi(x)-\varepsilon\xi\circ\nabla\phi(x)\vert^2-\vert x-\nabla\phi(x)\vert^2}{2\tau}\right)dx\\
-+&\int\rho_\tau^{n+1}(x)[V(x+\varepsilon\xi(x))-V(x)]dx-\int\rho_\tau^{n+1}(x)\log( \det(\operatorname{Id}+\varepsilon\nabla\xi(x)))dx
++&\int\rho_\tau^{n+1}(x)[V(x+\varepsilon\xi(x))-V(x)]dx-\int\rho_\tau^{n+1}(x)\log( \det(I_k+\varepsilon\nabla\xi(x)))dx
 \end{align}
 wobei die Nichtnegativität aus der Minimierungseigenschaft von $\rho_\tau^{n+1}$ folgt.\\
 Dividiere durch $\varepsilon$ und lasse dieses gegen $0^+$ gehen, so bekommen wir (Differenzenquotienten! Ableitung an der Stelle $\varepsilon=0$!): 
@@ -347,23 +345,23 @@ und damit kann die linke Seite von (\ref{eqwithxi})ersetzt werden durch
 \frac{1}{\tau}\left(\int \rho_\tau^n(x)\zeta\circ\nabla\phi(x)dx-\int\rho_\tau^n(x)\zeta(x)dx\right)+O\left(\frac{1}{\tau}\int\rho_\tau^n(x)\vert x-\nabla\phi(x)\vert^2dx\right)\\
 =\frac{1}{\tau}\left(\int\rho_\tau^{n+1}\zeta-\int\rho_\tau^n\zeta\right)+O\left(\dfrac{W_2(\rho_\tau^n,\rho_\tau^{n+1})^2}{\tau}\right)
 \end{align*}
-\item Setzt dies in(\ref{eqwithxi}) ein und  nun wird aufsummiert für $t_1,t_2$ beliebige Zeiten von $n_1=[t_1/\tau]$ bis zu $n_2=[t_2/\tau]$:
+\item Setzt dies in (\ref{eqwithxi}) ein und  nun wird aufsummiert  von $n_1=\lfloor t_1/\tau\rfloor$ bis zu $n_2=\lfloor t_2/\tau\rfloor+1$ für $t_1,t_2\in[0,\infty)$ beliebige Zeiten (Grenzen: siehe Beweis der Energy Gradient Estimate):
 \begin{eqnarray}
 \int\rho_\tau(t_2)\zeta-\int\rho_\tau(t_1)\zeta+O\left(\sum_{n=n_1}^{n_2}W_2(\rho_\tau^n,\rho_\tau^{n+1})^2\right)\\
-=\int_{t_1}^{t_2}\int\rho_\tau(t)(\nabla\zeta-\nabla V\cdot\nabla\zeta)dt+O8\tau)
+=\int_{t_1}^{t_2}\int\rho_\tau(t)(\Delta\zeta-\nabla V\cdot\nabla\zeta)dt+O(\tau)
 \end{eqnarray}
-Wobei wir benutzt haben, dass $\nabla\zeta$ und $\nabla V\cdot\nabla\zeta$ beschränkte Funktionien sind und $\rho_\tau(t)=\rho_\tau(t,\cdot)$ Wahrscheinlichkeitsmaß auf $\RR^n$.\\\\
+Wobei wir benutzt haben, dass $\Delta\zeta$ und $\nabla V\cdot\nabla\zeta$ beschränkte Funktionen sind und $\rho_\tau(t)=\rho_\tau(t,\cdot)$ Wahrscheinlichkeitsmaß auf $\RR^n$.\\\\
 \item Jetzt benutzen wir die total square estimate wrt $W_2$ und deduzieren für alle fixed $t_1,~t_2$:
 \begin{equation}
-\int\rho_\tau(t_2)\zeta-\int\rho_\tau(t_1)\zeta+O(\tau)=\int_{t_1}^{t_2}\int\rho_\tau(t)(\nabla\zeta-\nabla V\cdot\nabla\zeta)dt+O(\tau)
+\int\rho_\tau(t_2)\zeta-\int\rho_\tau(t_1)\zeta+O(\tau)=\int_{t_1}^{t_2}\int\rho_\tau(t)(\Delta\zeta-\nabla V\cdot\nabla\zeta)dt+O(\tau)
 \end{equation}
 \item Grenzwert $\tau\to 0$:
 \begin{equation}
-\int\rho(t_2)\zeta-\int\rho(t_1)\zeta=\int_{t_1}^{t_2}\int\rho(t)(\nabla\zeta-\nabla V\cdot\nabla\zeta)dt
+\int\rho(t_2)\zeta-\int\rho(t_1)\zeta=\int_{t_1}^{t_2}\int\rho(t)(\Delta\zeta-\nabla V\cdot\nabla\zeta)dt
 \end{equation}
 die schwache Formulierng der linearen Fokker-Planck-Gleichung mit Potential V, d.h.
 \begin{equation}
-\dfrac{\partial\rho}{\partial t}=\nabla\rho+\nabla\cdot(\rho\nabla V)
+\dfrac{\partial\rho}{\partial t}=\Delta\rho+\nabla\cdot(\rho\nabla V)
 \end{equation}
 Diese Gleichung ist erfüllt bei jedem "'weak cluster point'" der Folge $(\rho_\tau)$; da es eine eindeutige Lösung annimmt, muss diese Lösung der Grenzwert für $\tau\to 0$ sein.
 
