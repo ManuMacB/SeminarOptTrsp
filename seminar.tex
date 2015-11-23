@@ -53,7 +53,7 @@
  Prof. Dr. Matthes \hfill Manuela Lambacher\\
  Optimaler Transport - Geometrie und Anwendungen \hfill 09.12.2015
  \begin{center}
-  {\huge{tolles referat}} 
+  {\huge{Zeit-Diskretisierung von Gradientenflüssen}} 
  \end{center}
  
  \hrule
@@ -75,7 +75,7 @@ TODO: Räume, was woraus...
 Statt dieses Problem explizit zu lösen, ist unser Ziel, den Gradientenfluss als Grenzwert eines zeitlich diskretisierten Problems darzustellen, sodass jeglicher expliziter Umgang mit Subdifferentialen und dem Gradientenoperator umgangen wird.
 
 \begin{defi}\label{approx}
-Der \textbf{approximierte Gradientenfluss} für ein geeignetes Energie-Funktional E in einem abstraktem metrischen Raum mit einer metric-denoted Distanz sei gegeben durch:
+Der \textbf{approximierte Gradientenfluss} $(X_\tau)$ für ein geeignetes Energie-Funktional E in einem abstraktem metrischen Raum mit einer metric-denoted Distanz sei gegeben durch:
 \newline
 Sei die zeitliche Schrittweite $\tau > 0$ gegeben, $n\in\NN_0$, dann ist die Folge $\left( X^n_\tau \right)_{n\geq 0}$:
 \\
@@ -291,45 +291,46 @@ Der approximierte Gradientenfluss (bzw. die Interpolation) $\rho_\tau:(0,\infty)
 für die Folge $(\rho_\tau^n)_n,~n\in\NN_0$:
 \[\rho_\tau^0=\rho^0; \]
 Gegeben $\rho_\tau^n$, definiere den nächsten Schritt als Minimierer von
-\begin{equation} \rho \mapsto E(\rho)+\dfrac{W_2(\rho_\tau^n,\rho)^2}{2\tau},
+\begin{equation} \rho \mapsto E(\rho)+\dfrac{W_2(\rho_\tau^n,\rho)^2}{2\tau}, \label{rho^n}
 \end{equation}
 Damit gilt: Die Fokker-Planck-Gleichung ist der Gradientenfluss für das Freie-Energie Funktional mit der Wassersteindistanz.
 \end{theorem}
 
 \begin{proof}
-setting: \\
-Betrachte das Energie-Funktional \[E(\rho)=\int \rho \log \rho + \int\rho V\] auf $P(\RR^k)$, wobei $V(x)$ ein glattes Potential (??) ist, das folgende Wachstumsbedingung erfüllt:.\\
-Sei \\
-Sei weiterhin $\tau>0$ und definiere sodann die Folge $(\rho_\tau^n)$ analog zu Punkt 1 des Vortrages:\\
-
-\[\rho_\tau^0=\rho^0; \]
-gegeben $\rho_\tau^n$ definiere den nächsten Schritt als Minimierer von
-\begin{equation*} \rho \mapsto E(\rho)+\dfrac{W_2(\rho_\tau^n,\rho)^2}{2\tau}
-\end{equation*}
-Da E strikt konvex im üblichen Sinne ist (displacement konvex nur wenn V konvex ist), ebenso wie die Wassersteinmetrik, und damit ist unser Minimierer eindeutig. \\
-Wie im vorherigen Abschnitt kann man eine uniform control über $\sup_{t\geq 0} E(\rho_\tau(t))$ erlangen, die einem die tightness der familie $(rho_\tau)_{\tau >0}$ in der x-varibale sowie schwache $L^1$-kompaktheit garantiert. \\
-Die approximate Hölder 1/2 continuity estimate in der quadraticshen wasserstein distanz sichert die approximative uniforme equikontinuität in zeit von $(\rho_\tau)_\tau$. All dies ist hinreichend um (betrachte evtl subsequence $(\tau_k)_k$) $(\rho_\tau)_\tau$ zu einer Funktion $\rho: \RR_+ \mapsto P_{ac}(\RR^n)$ konvergiert, stetig falls $P_{ac}(\RR^n)$ mit der schwachen $L^1$-Topologie verknüft ist. \\
-Um nun den Grenzewrt zu betrachten, brauche nwir eine geeignete Variation von $\rho_\tau^{n+1}$.\\
+\begin{enumerate}
+\item Da E strikt konvex im üblichen Sinne ist, ebenso wie die Wassersteinmetrik, ist der Minimierer in (\ref{rho^n})  eindeutig. 
+\item Analog zu (\ref{enest}) erhält man eine obere Grenze für unser Funktional: $\sup_{t\geq 0} E(\rho_\tau(t))=\sup_n E(\rho_\tau^n)\leq E(\rho_0)$
+Dies garantiert die Dichtheit der Familie $(\rho_\tau)_{\tau >0}$ in der x-Variable sowie schwache $L^1$-Kompaktheit- 
+\item Die approximate Hölder 1/2 Ungleichung (\ref{Hölder}) hinsichtlich der Wassersteindistanz sichert die approximative uniforme equikontinuität in zeit von $(\rho_\tau)_\tau$. \\
+$\Rightarrow$ All dies ist hinreichend, damit(betrachte falls nötig Teilfolge $(\tau_k)_k$) $(\rho_\tau)_\tau$ zu einer Funktion $\rho: \RR_+ \mapsto P(\RR^n)$ konvergiert, stetig falls $P(\RR^n)$ mit der schwachen $L^1$-Topologie verknüpft ist. \\
+\item Erfüllt nun dieser Grenzwert den Satz, d.h. die (LFK)? \\
+Wir betrachten eine geeignete Variation von $\rho_\tau^{n+1}$.\\
 Sei $\xi$ ein glattes Vektorfeld mit kompaktem Träger, und $T_\varepsilon$ die Familie von Trajektoren verknüpft mit dem Vektorfeld $\operatorname{Id} +\varepsilon\xi$. Dann definiere
 \[\tilde{\rho}_\varepsilon=T_\varepsilon \#\rho_\tau^{n+1} \]
-Für $\varepsilon$ klein genug ist $T_\varepsilon$ ein $C^1$-diffeomorphismus (fixed point theoren und $\det(\nabla T_\varepsilon)>0$.\\
-Nach Definition gilt:
+Pushforward: $(\tilde{\rho}_\varepsilon \mathcal{L}^k)(B)=(\rho_\tau^{n+1}L^k)(T_\varepsilon^{-1}(B))$\\
+Für $\varepsilon$ klein genug ist $T_\varepsilon$ ein $C^1$-diffeomorphismus (fixed point theoren und $\det(\nabla T_\varepsilon)>0$) und invertierbar.\\
+\item Es gilt aufgrund der Invertierbarkeit von $T_\varepsilon$ und Dichtheit von $p_\tau^{n+1}$ mithilfe von Substitution (siehe Skript Optimal Transport, Savarè)  
 \begin{eqnarray}
 E(\tilde{\rho}_\varepsilon)=&\int\tilde{\rho}_\varepsilon\log\tilde{\rho}_\varepsilon+\int\tilde{\rho}_\epsilon V\\
-=&\int \rho_\tau^{n+1}\log\dfrac{\rho_\tau^{n+1}}{\det(I_k+\varepsilon \nabla \xi)}+\int \rho_\tau^{n+1}(x)V(x+\varepsilon\xi(x))dx.
+=&\int \rho_\tau^{n+1}\log\dfrac{\rho_\tau^{n+1}}{\det(\operatorname{Id}+\varepsilon \nabla \xi)}+\int \rho_\tau^{n+1}(x)V(x+\varepsilon\xi(x))dx.
 \end{eqnarray}
-Aus der energy estimate folgt andererseits, dass $\rho_\tau^n, \rho_\tau^{n+1}$ absolut stetig sind. Damit existert eine optimale Abbildung $\nabla \phi$ s.t. $\nabla \phi \# \rho_\tau^n=\rho_\tau^{n+1}$ und es gilt
+\item Aus der energy estimate folgt andererseits, dass $\rho_\tau^n, \rho_\tau^{n+1}$ absolut stetig (bzgl. was? $\rho_0$?) sind. Damit (Brenier?) existert eine bzgl. der Wassersteinmetrik optimale Abbildung $\nabla \phi$ s.t. $\nabla \phi \# \rho_\tau^n=\rho_\tau^{n+1}$, also gilt (nach Def. $W_2$, bzw. s. Savarè)
+\begin{equation}
+W_2(\rho_\tau^n,\rho_\tau^{n+1})^2=\int \rho_\tau^n(x)\vert x-\nabla\phi(x)\vert^2 dx.
+\end{equation}
+Dann können wir $\tilde{\rho_\varepsilon}$ auch in Abhängigkeit von $\rho_\tau^n$ statt $\rho_\tau^{n+1}$ schreiben: $\tilde{\rho}_\varepsilon=[(\operatorname{Id}+\varepsilon\xi)\circ\nabla\phi]\#\rho_\tau^n$.\\
+Wir verwenden nun nach der Definition der Wassersteinmetrik analog zum letzten Schritt die bestimmte Abbildung $[(\operatorname{Id}+\varepsilon\xi)\circ\nabla\phi]$ zwischen $\tilde{\rho}_\varepsilon$ und $\rho_\tau^n$, diesmal haben wir allerdings keinen Anspruch darauf, dass dies tatsächlich die optimale wäre, und erlangen so folgende Ungleichung:
 \begin{equation*}
-W_2(\rho_\tau^n,\tilde{\rho}_\varepsilon)^2 \leq \int \rho_\tau^n(x)\vert x-\nabla \phi(x)-\varepsilon\xi\circ\nabla\phi(x)\vert^2dx
+W_2(\rho_\tau^n,\tilde{\rho}_\varepsilon)^2 \leq \int \vert x-\underset{[(\operatorname{Id}+\varepsilon\xi)\circ\nabla\phi](x)}{\underbrace{\nabla \phi(x)-\varepsilon\xi\circ\nabla\phi(x)}}\vert^2 \rho_\tau^n(x)dx
 \end{equation*}
 Damit kommen wir auf
 \begin{align}
-\dfrac{W_2(\rho_\tau^n,\tilde{\rho}_\varepsilon)^2}{2\tau}&+E(\tilde{\rho}_\varepsilon)-\dfrac{W_2(\rho_\tau^n,\rho_\tau^{n+1})^2}{2\tau}-E(\rho_\tau^{n+1})\\
-\leq\int&\rho_\tau^n(x)\left(\dfrac{\vert x-\nabla \phi(x)-\varepsilon\xi\circ\nabla\phi(x)\vert^2-\vert x-\nabla\phi(x)\vert^2}{2\tau}\right)dx\\
-+&\int\rho_\tau^{n+1}(x)[V(x+\varepsilon\xi(x))-V(x)]dx-\int\rho_\tau^{n+1}(x)\log \det(\operatorname{Id}+\varepsilon\nabla\xi(x))dx\geq 0
+0\leq\dfrac{W_2(\rho_\tau^n,\tilde{\rho}_\varepsilon)^2}{2\tau}&+E(\tilde{\rho}_\varepsilon)-\dfrac{W_2(\rho_\tau^n,\rho_\tau^{n+1})^2}{2\tau}-E(\rho_\tau^{n+1})\\
+\overset{\log(\frac{a}{b})=\log a-\log b}\leq&\int\rho_\tau^n(x)\left(\dfrac{\vert x-\nabla \phi(x)-\varepsilon\xi\circ\nabla\phi(x)\vert^2-\vert x-\nabla\phi(x)\vert^2}{2\tau}\right)dx\\
++&\int\rho_\tau^{n+1}(x)[V(x+\varepsilon\xi(x))-V(x)]dx-\int\rho_\tau^{n+1}(x)\log( \det(\operatorname{Id}+\varepsilon\nabla\xi(x)))dx
 \end{align}
-wobei die nichtnegativität der linken Seite aus der Minimierungseigenschaft von $\rho_\tau^{n+1}$ folgt.
-Dividiere durch $\varepsilon$ und lasse dieses gegen $0^+$ gehen, so bekommen wir: 
+wobei die Nichtnegativität aus der Minimierungseigenschaft von $\rho_\tau^{n+1}$ folgt.\\
+Dividiere durch $\varepsilon$ und lasse dieses gegen $0^+$ gehen, so bekommen wir (Differenzenquotienten! Ableitung an der Stelle $\varepsilon=0$!): 
 \begin{align*}
 0\leq\frac{1}{\tau} \int \rho_\tau^n(x)\left\langle\nabla\phi(x)-x,\xi\circ\nabla\phi(x)\right\rangle dx+\int\rho_\tau^{n+1}(x)\langle\nabla V(x),\xi(x)\rangle dx\\-\int\rho_\tau^{n+1}(x)(\nabla\cdot \xi)(x)dx
 \end{align*}
@@ -337,8 +338,7 @@ Da dies genauso für $-\xi$ gilt, bekommen wir Gleichheit. Umforuliert:
 \begin{equation}
 \frac{1}{\tau} \int \rho_\tau^n(x)\left\langle\nabla\phi(x)-x,\xi\circ\nabla\phi(x)\right\rangle dx\\=\int\rho_\tau^{n+1}(x)\left[(\nabla\cdot \xi)(x)-\langle\nabla V(x),\xi(x)\rangle \right]dx \label{eqwithxi}
 \end{equation}
-
-Jetzt sei $\xi$ derart, dass für ein $\zeta\in\mathcal{D}(\RR^n)$ gilt $\xi=\nabla\zeta$. Es gilt (erweiterung):
+\item Jetzt sei $\xi$ derart, dass für ein $\zeta\in\mathcal{D}(\RR^n)$ gilt $\xi=\nabla\zeta$. Es gilt (erweiterung):
 \begin{equation}
 \zeta(\nabla\phi(x))-\zeta(x)=\left\langle\nabla\phi(x)-x,\nabla\zeta\circ\nabla\phi(x)\right\rangle+O(\vert x-\nabla\phi(x)\vert^2
 \end{equation}
@@ -347,17 +347,17 @@ und damit kann die linke Seite von (\ref{eqwithxi})ersetzt werden durch
 \frac{1}{\tau}\left(\int \rho_\tau^n(x)\zeta\circ\nabla\phi(x)dx-\int\rho_\tau^n(x)\zeta(x)dx\right)+O\left(\frac{1}{\tau}\int\rho_\tau^n(x)\vert x-\nabla\phi(x)\vert^2dx\right)\\
 =\frac{1}{\tau}\left(\int\rho_\tau^{n+1}\zeta-\int\rho_\tau^n\zeta\right)+O\left(\dfrac{W_2(\rho_\tau^n,\rho_\tau^{n+1})^2}{\tau}\right)
 \end{align*}
-Setzt dies in(\ref{eqwithxi}) ein und  nun wird aufsummiert für $t_1,t_2$ beliebige Zeiten von $n_1=[t_1/\tau]$ bis zu $n_2=[t_2/\tau]$:
+\item Setzt dies in(\ref{eqwithxi}) ein und  nun wird aufsummiert für $t_1,t_2$ beliebige Zeiten von $n_1=[t_1/\tau]$ bis zu $n_2=[t_2/\tau]$:
 \begin{eqnarray}
 \int\rho_\tau(t_2)\zeta-\int\rho_\tau(t_1)\zeta+O\left(\sum_{n=n_1}^{n_2}W_2(\rho_\tau^n,\rho_\tau^{n+1})^2\right)\\
 =\int_{t_1}^{t_2}\int\rho_\tau(t)(\nabla\zeta-\nabla V\cdot\nabla\zeta)dt+O8\tau)
 \end{eqnarray}
 Wobei wir benutzt haben, dass $\nabla\zeta$ und $\nabla V\cdot\nabla\zeta$ beschränkte Funktionien sind und $\rho_\tau(t)=\rho_\tau(t,\cdot)$ Wahrscheinlichkeitsmaß auf $\RR^n$.\\\\
-Jetzt benutzen wir die total square estimate wrt $W_2$ und deduzieren für alle fixed $t_1,~t_2$:
+\item Jetzt benutzen wir die total square estimate wrt $W_2$ und deduzieren für alle fixed $t_1,~t_2$:
 \begin{equation}
 \int\rho_\tau(t_2)\zeta-\int\rho_\tau(t_1)\zeta+O(\tau)=\int_{t_1}^{t_2}\int\rho_\tau(t)(\nabla\zeta-\nabla V\cdot\nabla\zeta)dt+O(\tau)
 \end{equation}
-Grenzwert $\tau\to 0$:
+\item Grenzwert $\tau\to 0$:
 \begin{equation}
 \int\rho(t_2)\zeta-\int\rho(t_1)\zeta=\int_{t_1}^{t_2}\int\rho(t)(\nabla\zeta-\nabla V\cdot\nabla\zeta)dt
 \end{equation}
@@ -367,7 +367,8 @@ die schwache Formulierng der linearen Fokker-Planck-Gleichung mit Potential V, d
 \end{equation}
 Diese Gleichung ist erfüllt bei jedem "'weak cluster point'" der Folge $(\rho_\tau)$; da es eine eindeutige Lösung annimmt, muss diese Lösung der Grenzwert für $\tau\to 0$ sein.
 
-Damit ist bewiesen:
+Damit ist der Beweis erbracht.
+\end{enumerate}
 \end{proof}
 
 \begin{bem}
