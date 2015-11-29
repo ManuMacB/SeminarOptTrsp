@@ -67,7 +67,7 @@ Wir betrachten folgenden Gradientenfluss:
 \begin{eqnarray}
 \dfrac{dX}{dt}=~-\grad E(X) \label{eq1}
 \end{eqnarray}
-$E$ ist ein Energie-Funktional, $X(t)\in\RR^k$ für festes $t\in[0,\infty)$ können wir z.B. als Position gegebener Partikel interpretieren.\newline
+$E$ ist ein Energie-Funktional, $X(t)$ können wir z.B. als Position gegebener Partikel interpretieren.\newline
 
 
 Statt dieses Problem explizit zu lösen, ist unser Ziel, den Gradientenfluss als Grenzwert eines zeitlich diskretisierten Problems darzustellen, sodass jeglicher expliziter Umgang mit Subdifferentialen und dem Gradientenoperator umgangen wird.
@@ -182,6 +182,74 @@ Gleichheit wird durch die Betrachtung von $-\omega$ erreicht, und damit haben wi
 (Für explizite $\omega$ können wir auch viele weitere Ungleichungen herleiten.)
 
  
+\newpage
+
+\begin{lem}[Energy gradient estimate]
+Sei eine zugrundeliegende Riemannstruktur (Differenzierbare Mannigfaltigkeit, Metrik, Tangentenräume) gegeben und das Energie-Funktional hinreichend glatt. Dann gilt 
+\begin{eqnarray}
+\tau \sum_{n\geq 0} \Vert\grad E(X_\tau^n)\Vert^2 \leq 2[E(X^0)-\inf E]
+\end{eqnarray}
+bzw. im stetigen Falle für $E_\tau$ (nach dessen Definition):
+\begin{eqnarray}
+\int_0^\infty \Vert\grad E(X_\tau)\Vert^2 dt\leq 2[E(X^0)-\inf E]
+\label{Engrad}
+\end{eqnarray}
+\end{lem}
+\begin{proof}
+Sei $\omega$ ein beliebiger Tangentenvektor auf $X_\tau^{n+1}$. Wir betrachten Perturbationen von $X_\tau^{n+1}$ "'entlang $\omega$"': Definiere für ein kleines $\varepsilon>0$ einen "'Pfad"' $\tilde{X}_\varepsilon$ folgendermaßen:\\
+\begin{eqnarray}
+\tilde{X}_0=X_\tau^{n+1},~~\dfrac{d\tilde{X}_\varepsilon}{d\varepsilon}\Bigg|_{\varepsilon=0} =\omega
+\end{eqnarray}
+Da $X_\tau^{n+1}$ Minimierer ist, gilt offensichtlich
+\begin{eqnarray}
+E(X_\tau^{n+1})+\dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}\leq E(\tilde{X}_\varepsilon)+\dfrac{\dist(X_\tau^n,\tilde{X}_\varepsilon)^2}{2\tau}~~~\forall \varepsilon>0 \label{a)}
+\end{eqnarray}
+Unter der Annahme, dass das Energiefunktional glatt ist, gilt, jeweils mit Taylor:
+\begin{eqnarray}
+\tilde{X}_\varepsilon = X_0+\dfrac{d\tilde{X}_\varepsilon}{d\varepsilon}\Bigg|_{\varepsilon=0}\cdot\varepsilon+O(\varepsilon^2),\\
+\begin{split}
+E(\tilde{X}_\varepsilon)=&E(X_0)+\langle\grad E(X_0),\underset{\omega\varepsilon+O(\varepsilon^2)}{\underbrace{\tilde{X}_\varepsilon -X_0}}\rangle+O((\tilde{X}_\varepsilon-X_0)^2)\\
+=&E(X_\tau^{n+1})+\varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2) \label{b)}
+\end{split}
+\end{eqnarray}
+
+Außerdem gilt:
+\begin{align*}
+\dist (X_\tau^n,&\tilde{X}_\varepsilon)^2-\dist(X_\tau^n,X_\tau^{n+1})^2=\\
+\overset{binom.}=&\left(\dist(X_\tau^n,\tilde{X}_\varepsilon)+\dist(X_\tau^n,X_\tau^{n+1})\right)\left(\dist(X_\tau^n,\tilde{X}_\varepsilon)-\dist(X_\tau^n,X_\tau^{n+1})\right)\\
+\overset{\triangle-Ungl.}\leq& \left(\dist(X_\tau^n,\tilde{X}_\varepsilon)+\dist(X_\tau^n,X_\tau^{n+1})\right)\dist(X_\tau^{n+1},\tilde{X}_\varepsilon) \\
+\overset{\triangle-Ungl.}\leq&\left(2\dist(X_\tau^n,X_\tau^{n+1}+\dist(X_\tau^{n+1},\tilde{X}_\varepsilon)\right)\dist(X_\tau^{n+1},\tilde{X}_\varepsilon)
+\end{align*}
+Beobachtung: \[\dist(X_\tau^{n+1},\tilde{X}_\varepsilon)=\varepsilon\Vert \omega \Vert + o(\varepsilon). \]
+Damit wird aus obiger Gleichung
+\begin{eqnarray}
+\dfrac{\dist(X_\tau^n,\tilde{X}_\varepsilon)^2}{2\tau}\leq \dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}+\varepsilon\dist(X_\tau^n,X_\tau^{n+1})\dfrac{\Vert \omega \Vert}{\tau} + o(\varepsilon) \label{c)}
+\end{eqnarray}
+\\
+Jetzt kombinieren wir die drei Aussagen (\ref{a)}),(\ref{b)}) und (\ref{c)}): Dazu setzen wir zunächst (\ref{b)}) in (\ref{a)}) ein.
+\begin{align*}
+E&(X_\tau^{n+1})+\dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}\leq E(X_\tau^{n+1})+\varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2)+\dfrac{\dist(X_\tau^n,\tilde{X}_\varepsilon)^2}{2\tau}
+\\
+\Rightarrow& \dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}\overset{\ref{c)}}{\leq} \varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2)+ \dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{2\tau}+\varepsilon\dist(X_\tau^n,X_\tau^{n+1})\dfrac{\Vert \omega \Vert}{\tau} + o(\varepsilon)\\
+\Rightarrow& 0\leq \varepsilon \bigg(\langle \grad E(X_\tau^{n+1}),\omega\rangle)+\dist(X_\tau^n,X_\tau^{n+1})\dfrac{\Vert \omega \Vert}{\tau} +\underset{\to 0 \text{ für } \varepsilon \to 0} {\underbrace{\dfrac{o(\varepsilon)}{\varepsilon}+\dfrac{O(\varepsilon^2)}{\varepsilon}}} \bigg)
+\end{align*}
+Nun wählen wir $\omega$ explizit: $\omega=-\grad E(X_\tau^{n+1})$ (im Tangentialraum als Ableitung eines Funktionals auf dem Vektorraum)
+\begin{align*}
+0\leq& \underset{-\Vert \grad E(X_\tau^{n+1}) \Vert^2}{\underbrace{\langle \grad E(X_\tau^{n+1}),-\grad E(X_\tau^{n+1}\rangle)}}+\dfrac{\dist(X_\tau^n,X_\tau^{n+1})\Vert \grad E(X_\tau^{n+1}) \Vert}{\tau}\\
+\Rightarrow& \dfrac{\dist(X_\tau^n,X_\tau^{n+1})^2}{\tau^2} \geq \Vert \grad E(X_\tau^{n+1}) \Vert^2
+\end{align*}
+In Verbindung mit der square distance estimate (\ref{totalsquare}) kommen wir schließlich zu der geforderten Gleichung:
+\begin{equation}
+ 2\tau (E(X^0)-\inf E)\overset{\ref{totalsquare}}\geq \sum_{n\geq 0} \dist(X_\tau^n,X_\tau^{n+1})^2 \geq \tau^2 \sum_{n\geq 1} \Vert \grad E(X_\tau^n)\Vert^2
+\end{equation}
+TODO: warum steht im Buch Summe über $n\geq 0$? Ist auf $\dist$-Seite nicht definiert.
+\end{proof}
+\begin{bem}
+Die Aussage des Lemmas für $X_\tau$ gilt auch in einer nicht-riemannschen Situation mit einer passenden Definition der Norm des Gradienten. 
+\end{bem}
+
+Diese drei Abschätzungen stellen uns die relative Kompaktheit von $(X_\tau)$ für $\tau \to 0$ sicher, und damit die Existenz einer konvergenten Teilfolge.  \\
+Um abschließend zum Limes überzugehen, müssen wir ein dem letzten Beweis ähnliches Verfahren durchlaufen: Kleine Perturbationen, $\omega$ beliebig lassen. Approximierte Gleichung finden. Siehe nächster Abschnitt. 
 
 \newpage
 \section{Die lineare Fokker-Plank-Gleichung, Monge-Kantorovich und der approximierte Gradientenfluss}

@@ -1,0 +1,157 @@
+\documentclass[11pt,a4paper,notitlepage]{scrreprt}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{ulsy}
+\usepackage{tikz}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amstext,amsfonts,mathrsfs, amsthm}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{framed}
+
+
+% Mathmatische Symbole
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\FF}{\mathcal{F}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\ee}{\operatorname{e}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\grad}{\operatorname{grad}}
+
+\newtheorem{defi}{Definition}[section]
+\newtheorem{prop}[defi]{Proposition}
+\newtheorem{theorem}[defi]{Theorem}
+\newtheorem{cor}[defi]{Corollar}
+\newtheorem{lem}[defi]{Lemma}
+\newtheorem{bem}[defi]{Bemerkung}
+
+\author{ich}
+\title{Handout}
+
+
+
+\begin{document}
+\parindent 0pt
+
+
+%\maketitle
+%\newpage
+%\tableofcontents
+%\newpage
+
+\pagestyle{plain}
+
+
+
+ Prof. Dr. Matthes \hfill Manuela Lambacher\\
+ Optimaler Transport - Geometrie und Anwendungen \hfill 09.12.2015
+ \begin{center}
+  {\huge{Zeit-Diskretisierung von Gradientenflüssen}} 
+ \end{center}
+ 
+ \hrule
+ 
+\numberwithin{equation}{section}
+\renewcommand{\thechapter}{\arabic{section}}
+\renewcommand{\thesection}{\arabic{section}}
+\section{Generalisierte Gradientenflüsse}
+
+Betrachte \begin{eqnarray}
+\dfrac{dX}{dt}=~-\grad E(X)~~~~~~~~~X(t=0)=X_0 \label{eq1}
+\end{eqnarray} für $X(t)\in\RR^k$ für festes $t\in[0,\infty)$, Energie-Funktional E. 
+\begin{defi}\label{approx}
+
+Der \textbf{approximierte Gradientenfluss} $(X_\tau)$ für ein Energie-Funktional E in einem abstraktem metrischen Raum mit einer Distanz wird folgendermaßen konstruiert:\newline
+Sei die zeitliche Schrittweite $\tau > 0$ gegeben, $n\in\NN_0$, dann ist die Folge $\left( X^n_\tau \right)_{n\geq 0}$:
+\\
+$X_\tau^0:=X_0,$
+\\
+$X_\tau^{n+1}$ ist ein Minimierer des Minimerungsproblems
+\begin{eqnarray}
+\min\left[E(X)+\dfrac{\dist(X_\tau^n,X)^2}{2\tau}\right] \label{Min}
+\end{eqnarray}
+Dann sei $X_\tau$ auf $\RR_+$ als stückweise konstante Funktion mit Wert $X_\tau(t)=X^n_\tau$ für $t\in [n\tau,(n+1)\tau)$ definiert. 
+\end{defi}
+\vspace{10pt}
+Sei $\Vert \cdot \Vert$ die euklidische Norm, $E(X)\geq C$ und $(X_\tau^n)_{n\in\NN_0}$ wie in Definition (\ref{approx}). Dann sind folgende Aussagen erfüllt:
+
+\begin{lem}[Energy estimate]
+\begin{eqnarray}
+\sup_{n\geq 0}E(X_\tau^n)\leq E(X_0) \label{enest}
+\end{eqnarray}
+\end{lem}
+
+
+\begin{lem}[Total square distance estimate]
+\begin{eqnarray}
+\sum_{n\geq 0}\Vert X_\tau^n-X_\tau^{n+1}\Vert^2\leq 2\tau (E(X_0)-\inf E)\label{totalsquare}
+\end{eqnarray}
+\end{lem}
+
+
+\begin{lem}[Hölder 1/2-Abschätzung für $X_\tau$]  $~~$ \\
+Für $s<t$ gilt:
+\begin{eqnarray}
+\Vert X_\tau(s)-X_\tau(t)\Vert^2 \overset{1)}\leq \left[\dfrac{t-s}{\tau}+1\right] \sum_{\frac{s}{\tau}\leq n \leq \frac{t}{\tau}} \Vert X^n_\tau- X_\tau^{n+1}\Vert^2 \overset{2)}\leq 2(E(X_0)-\inf E)[(t-s)+\tau]. \label{Hölder}
+\end{eqnarray}
+\end{lem}
+
+\begin{lem}
+Sei eine zugrundeliegende Riemannstruktur (Differenzierbare Mannigfaltigkeit, Metrik, Tangentenräume) gegeben und das Energie-Funktional hinreichend glatt. Die Lösungen des Minimerungsproblems erfüllen folgende schwache Form der Gradientengleichung für $\omega$: \\
+\begin{equation}
+-\grad E(X_\tau^{n+1})\cdot\omega= \dfrac{\langle X_\tau^n-X_\tau^{n+1},\omega\rangle}{\tau}
+\end{equation}
+\end{lem}
+
+ 
+
+\newpage
+\section{Die lineare Fokker-Plank-Gleichung, Monge-Kantorovich und der approximierte Gradientenfluss}
+
+\begin{defi}
+Die \textbf{lineare Fokker-Planck-Gleichung} (LFP) mit glattem Potential $V(x):\RR^k\to[0,\infty)$ und Anfangswert $\rho_0$, Wahrscheinlichkeitsdichte auf $\RR^k$, ist gegeben durch:
+\begin{eqnarray}
+\begin{split}
+\dfrac{\partial\rho}{\partial t}=\Delta\rho+\nabla\cdot(\rho\nabla V),\\
+\rho(0)=\rho_0.\label{FP}
+\end{split}
+\end{eqnarray}
+Eine Wahrscheinlichkeitsdichte $\rho$ erfüllt die (LFP) im schwachen Sinne, falls für alle Testfunktionen $\zeta$ gilt:
+\begin{equation}
+\int_{\RR^k} \int_T (\rho\Delta\zeta+\rho\nabla V\cdot\nabla\zeta -\rho\zeta_t) dt dx=\int\rho_0\zeta(x,0)dx \label{FPweak}
+\end{equation}
+\end{defi}
+
+\begin{defi}
+Für eine Wahrscheinlichkeitsdichte $\rho\in P(\RR^k)$ und ein hinreichend glattes Potential V sei das \textbf{Freie Energie Funktional $E(\rho)$} gegeben durch:
+\begin{equation}
+E(\rho):=\int_{\RR^k} \rho\log\rho dx + \int_{\RR^k}\rho V dx \label{FEFktn}
+\end{equation}
+\end{defi}
+\vspace{10pt}
+
+
+\begin{theorem}
+Sei $V(x)$ ein glattes Potential, das folgende Wachstumsbedingung erfüllt: \\$V(x)=O(\vert x \vert^2)$ für $x\to\infty$. \\
+Sei $\rho_0$ eine Wahrscheinlichkeitsdichte, sodass das Freie Energie Funktional $E(\rho)$ (\ref{FEFktn}) an der Stelle $\rho_0$ endlich ist. Sei $\tau>0$.\\
+Dann gilt: \\\\
+Der \textbf{approximierte Gradientenfluss $\rho_\tau$}  für $E(\rho)$ bzgl. der quadratischen Wassersteindistanz konvergiert für $\tau\to 0$ für alle $t\in(0,\infty)$ schwach in $L^1(\RR^k)$ gegen die eindeutige Lösung $\rho(x,t)\in C^\infty((\RR^k\times(0,\infty))$ der linearen Fokker-Planck-Gleichung (\ref{FP}) mit Anfangswert $\rho_0$.\\\\
+Der approximierte Gradientenfluss (bzw. die Interpolation) $\rho_\tau:(0,\infty)\times\RR^k\to[0,\infty)$ wird hierbei analog zu Def \ref{approx} konstruiert:
+\begin{equation}
+\rho_\tau(t):=\rho_\tau^n ~\text{ für }t\in[n\tau,(n+1)\tau)
+\end{equation}
+für die Folge $(\rho_\tau^n)_n,~n\in\NN_0$:
+\[\rho_\tau^0=\rho^0; \]
+Gegeben $\rho_\tau^n$, definiere den nächsten Schritt als Minimierer von
+\begin{equation} \rho \mapsto E(\rho)+\dfrac{W_2(\rho_\tau^n,\rho)^2}{2\tau}, \label{rho^n}
+\end{equation}
+\end{theorem}
+
+\end{document}
