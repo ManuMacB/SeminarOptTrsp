@@ -61,26 +61,35 @@
 \numberwithin{equation}{section}
 \renewcommand{\thechapter}{\arabic{section}}
 \renewcommand{\thesection}{\arabic{section}}
-\section{Approximierte Gradientenflüsse}
+\section{Approximierte Gradientenflüsse im euklidischen $\RR^k$}
 
 Betrachte \begin{eqnarray}
-\dfrac{dX}{dt}=~-\grad E(X),~~~~~~~~~X(0)=X^0 \label{eq1}
-\end{eqnarray} für $X(t)\in\RR^k$ für festes $t\in[0,\infty)$ und ein Energie-Funktional $E:~\RR^k\to\RR$. 
-\vspace{4pt}
-\begin{defi}\label{approx}
-Der \textbf{approximierte Gradientenfluss} $(X_\tau)$ mit Anfangswert $X^0$ für das Energie-Funktional E in einem metrischen Raum wird folgendermaßen konstruiert:\newline
+\dfrac{dX}{dt}=~-\grad E(X),~~~~~~~~~X(0)=X^0, \label{eq1}
+\end{eqnarray} wobei das Energie-Funktional $E:~\RR^k\to\RR$ hinreichend glatt sei und $E(X^0)<\infty$. 
+\vspace{14pt}
+
+Variationelle Konstruktion des \textbf{approximierten Gradientenflusses} $(\bar{X}_\tau)$ mit der (euklidischen) Metrik:\newline
 Sei $\tau > 0$ die zeitliche Schrittweite, $n\in\NN_0$, dann ist die Folge $\left( X^n_\tau \right)_{n\geq 0}$ gegeben durch:
-\\
-$X_\tau^0:=X^0,$
-\\
-$X_\tau^{n+1}$ ist ein Minimierer des Minimerungsproblems
+\begin{itemize}
+\item[i)]$X_\tau^0:=X^0,$
+\item[ii)]$X_\tau^{n+1}$ ist eine Lösung des Minimierungsproblems
 \begin{eqnarray}
-\min_X\left[E(X)+\dfrac{\dist(X_\tau^n,X)^2}{2\tau}\right] \label{Min}
+\min_{X\in\RR^k}\left[E(X)+\dfrac{\Vert X_\tau^n-X\Vert^2}{2\tau}\right] \label{Min}
 \end{eqnarray}
-Dann sei $X_\tau$ auf $\RR_+^k$ als stückweise konstante Funktion mit Wert $X_\tau(t)=X^n_\tau$ für $t\in [n\tau,(n+1)\tau)$ definiert. 
-\end{defi}
+\end{itemize}
+Dann sei $\bar{X}_\tau:\RR_{\geq0}\to\RR^k$ eine stückweise konstante Funktion mit Wert $\bar{X}_\tau(t)=X^n_\tau$ für ${t\in [n\tau,(n+1)\tau)}$. 
+
 \vspace{12pt}
-Sei $\Vert \cdot \Vert$ die euklidische Norm, $E(X)\geq C$, $E(X^0)\leq\infty$ und $(X_\tau^n)_{n\in\NN_0}$ wie in Definition (\ref{approx}). Dann sind folgende Aussagen erfüllt:
+
+\begin{lem}
+$X_\tau^m,X_\tau^{m+1}\subset(X_\tau^n)_{n\geq 0}$ erfüllen für $\omega\in\RR^k$: \\
+\begin{equation}
+-\grad E(X_\tau^{m+1})\cdot\omega= \dfrac{ X_\tau^m-X_\tau^{m+1}}{\tau}\cdot\omega
+\end{equation}
+\end{lem}
+
+ 
+$E(X)\geq C$
 
 \begin{lem}[Energy estimate]
 \begin{eqnarray*}
@@ -89,9 +98,9 @@ Sei $\Vert \cdot \Vert$ die euklidische Norm, $E(X)\geq C$, $E(X^0)\leq\infty$ u
 \end{lem}
 
 
-\begin{lem}[Total square distance estimate]
+\begin{lem}
 \begin{eqnarray*}
-\sum_{n\geq 0}\Vert X_\tau^n-X_\tau^{n+1}\Vert^2\leq 2\tau (E(X^0)-\inf_X E(X))\label{totalsquare}
+\dfrac{\tau}{2}\sum_{n\geq 0} \left(\dfrac{\Vert X_\tau^n-X_\tau^{n+1}\Vert}{\tau}\right)^2\leq E(X^0)-\inf_X E(X)\label{totalsquare}
 \end{eqnarray*}
 \end{lem}
 
@@ -104,50 +113,60 @@ Für $s<t$ gilt:
 \end{lem}
 
 \begin{cor}
-Sei $E\in \mathcal{C}^1$. $X_\tau^m,X_\tau^{m+1}\subset(X_\tau^n)_{n\geq 0}$ erfüllen für $\omega\in\RR^k$: \\
+\begin{eqnarray}
+\bar{X}_\tau(t) \overset{\tau\to0}{\to} X \in \mathcal{C}^{1/2}([0,\infty);\RR^k) \text{ gleichmäßig bzgl. }t\geq 0,
+\end{eqnarray}
+und dieser Grenzwert erfüllt die schwache Formulierung von (\ref{eq1}): Für alle $0\leq t_1\leq t_2<\infty$ gilt
 \begin{equation}
--\grad E(X_\tau^{m+1})\cdot\omega= \dfrac{ X_\tau^m-X_\tau^{m+1}}{\tau}\cdot\omega
+-\int_{t_1}^{t_2}E(X(t))\cdot \omega dt = [X(t_2)-X(t_1)]\cdot\omega
 \end{equation}
 \end{cor}
-
- 
 
 \newpage
 \section{Der approximierte Gradientenfluss der linearen Fokker-Planck-Gleichung}
 
-\begin{defi}
-Die \textbf{lineare Fokker-Planck-Gleichung}  mit Potential \\${V(x)\in \mathcal{C}^2(\RR^k), \RR^k\to[0,\infty)}$, und Anfangswert $\rho_0\in P_{ac}(\RR^k)$ ist gegeben durch:
+Die \textbf{lineare Fokker-Planck-Gleichung}  mit Potential ${V(x)\in \mathcal{C}^2(\RR^d)}$ und Anfangswert $\rho_0\in P_{ac}(\RR^d)$ ist gegeben durch:
 \begin{eqnarray}
 \begin{split}
 \dfrac{\partial\rho(x,t)}{\partial t}=\Delta\rho(x,t)+\nabla\cdot(\rho(x,t)\nabla V(x)),\\
-\rho(x,0)=\rho_0(x).\label{FP}
+\rho(x,0)=\rho_0(x).\label{FP}\
 \end{split}
 \end{eqnarray}
-Sei $T>0$. $\rho(\cdot,t)\in P_{ac}(\RR^k)$ erfüllt die (LFP) im schwachen Sinne, falls für alle $\psi\in \mathcal{C}_c^\infty(\RR^k)$ gilt:
+Sei $T>0$. $\rho(\cdot,t)\in P_{ac}(\RR^d)$ erfüllt die (LFP) im schwachen Sinne, falls für alle $\psi\in \mathcal{C}_c^\infty(\RR^d)$ gilt:
 \begin{equation*}
-\int_{\RR^k} \int_0^T (\rho\Delta\psi+\rho\nabla V\cdot\nabla\psi -\rho\psi_t) dt dx=\int\rho_0\psi(x,0)dx \label{FPweak}
+\int_{\RR^d} \int_0^T (\rho\Delta\psi+\rho\nabla V\cdot\nabla\psi -\rho\psi_t) dt dx=\int\rho_0\psi(x,0)dx \label{FPweak}
 \end{equation*}
-\end{defi}
+
 \vspace{10pt}
 
 \begin{defi}
-Für eine Wahrscheinlichkeitsdichte $\rho(x)\in P_{ac}(\RR^k)$ und ein Potential $V(x)\in L^1(\RR^k)$ sei das \textbf{Freie Energie Funktional $E(\rho)$} gegeben durch:
+Für eine Wahrscheinlichkeitsdichte $\rho(x)\in P_{ac}(\RR^d)$ und ein Potential $V(x)\in L^1(\RR^d)$ sei das \textbf{Freie Energie Funktional $H(\rho)$} gegeben durch:
 \begin{equation}
-E(\rho):=\int_{\RR^k} \rho\log\rho~ dx + \int_{\RR^k}\rho V dx \label{FEFktn}
+H(\rho):=\int_{\RR^d} \rho\log\rho~ dx + \int_{\RR^d}\rho V dx \label{FEFktn}
 \end{equation}
 \end{defi}
 \vspace{10pt}
-
+Interpretation Otto: (FP) entspricht $\delta_t\rho = -\grad_{W_2} H(\rho)$
 
 \begin{theorem}
-Sei $V(x)\in \mathcal{C}^2(\RR^k)$ ein Potential, sodass $V(x)=O(\vert x \vert^2)$ für $x\to\infty$. \\
-Sei $\rho_0\in P_{ac}(\RR^k)$ derart, dass für das Freie Energie Funktional gilt $E(\rho_0)<\infty$. Sei $\tau>0$.\\\\
-Sei außerdem $\rho_\tau(x,t)$ der (Def. \ref{approx}) approximierte Gradientenfluss für $E(\rho)$ bzgl. der quadratischen Wassersteinmetrik. 
+Sei $V(x)\in \mathcal{C}^2(\RR^d)$ ein Potential, sodass $V(x)=O(\vert x \vert^2)$ für $x\to\infty$. \\
+Sei $\rho_0\in P_{ac}(\RR^d)$ derart, dass für das Freie Energie Funktional gilt $H(\rho_0)<\infty$. Sei $\tau>0$.\\\\
+Sei außerdem $\bar{\rho}_\tau(x,t)$ der approximierte Gradientenfluss für $H(\rho)$ bzgl. der quadratischen Wassersteinmetrik. 
 Dann gilt: \\
 \begin{equation*}
-\rho_\tau(x,t)\rightharpoonup \rho(x,t) \text{ in } L^1(\RR^k) \text{ für } \tau\to 0,
+\bar{\rho}_\tau(x,t)\rightharpoonup \rho(x,t) \text{ in } L^1(\RR^d) \text{ für } \tau\to 0,
 \end{equation*}
-wobei $\rho(x,t)\in C^\infty(\RR^k\times(0,\infty))$ die eindeutige Lösung der linearen Fokker-Planck-Gleichung mit Anfangswert $\rho_0$ ist. 
+wobei $\rho(x,t)\in C^\infty(\RR^d\times(0,\infty))$ die eindeutige Lösung der linearen Fokker-Planck-Gleichung mit Anfangswert $\rho_0$ ist. \\\\
+Der approximierte Gradientenfluss $\bar{\rho}_\tau:(0,\infty)\times\RR^d\to[0,\infty)$ wird hierbei analog zu Abschnitt 1 konstruiert:
+\begin{equation*}
+\bar{\rho}_\tau(t):=\rho_\tau^n ~\text{ für }t\in[n\tau,(n+1)\tau)
+\end{equation*}
+für die Folge $(\rho_\tau^n)_n,~n\in\NN_0$:
+\begin{itemize}
+\item[i)]$\begin{aligned}[t]\rho_\tau^0=\rho^0; \end{aligned}$
+\item[ii)]$\begin{aligned}[t]
+\rho_\tau^{n+1}=\underset{\rho\in\mathcal{P}_{ac}(\RR^d)}{\operatorname{argmin}}\left\{H(\rho)+\dfrac{W_2(\rho_\tau^n,\rho)^2}{2\tau}\right\}
+\end{aligned}$\end{itemize}
 \end{theorem}
 
 \end{document}
