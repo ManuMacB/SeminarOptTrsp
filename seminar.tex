@@ -65,47 +65,76 @@
 
 Wir betrachten folgenden Gradientenfluss:
 \begin{eqnarray}
-\dfrac{dX}{dt}=~-\grad E(X) \label{eq1}
+\dfrac{dX}{dt}=~-\grad E(X),~~~~X(0)=X^0 \label{eq1}
 \end{eqnarray}
-$E$ ist ein Energie-Funktional, $X(t)\in\RR^k$ für festes $t\in[0,\infty)$ können wir z.B. als Position gegebener Partikel interpretieren.\newline
+$E:\RR^k\to\RR$ sei ein glattes, nach unten beschränktes Energie-Funktional, das außerdem $E(X^0)<\infty$ erfülle. $X(t):[0,\infty)\to\RR^k$ können wir z.B. als Position gegebener Partikel interpretieren. Wir wollen von einer eindeutigen Lösung ausgehen (z.b. via Picard-Lindelöf).\newline
 
 
-Statt dieses Problem explizit zu lösen, ist unser Ziel, den Gradientenfluss als Grenzwert eines zeitlich diskretisierten Problems darzustellen, sodass jeglicher expliziter Umgang mit Subdifferentialen und dem Gradientenoperator umgangen wird.
+Statt dieses Problem explizit zu lösen, ist unser Ziel, den Gradientenfluss als Grenzwert eines zeitlich diskretisierten Problems darzustellen, sodass jeglicher expliziter Umgang mit Subdifferentialen und dem Gradientenoperator umgangen wird.\\\\
 
-\begin{defi}\label{approx}
-Der \textbf{approximierte Gradientenfluss} $(X_\tau)$ für ein geeignetes Energie-Funktional E in einem abstraktem metrischen Raum mit einer Distanz sei gegeben durch:
+Variationelle Konstruktion:
+Der \textbf{approximierte Gradientenfluss} $(\bar{X}_\tau)$ mit der euklidischen Distanz $\Vert \cdot \Vert$ sei gegeben durch:
 \newline
 Sei die zeitliche Schrittweite $\tau > 0$ gegeben, $n\in\NN_0$, dann ist die Folge $\left( X^n_\tau \right)_{n\geq 0}$:
-\\
-$X_\tau^0:=X_0,$
-\\
-$X_\tau^{n+1}$ ist ein Minimierer des Minimerungsproblems
+\begin{itemize}
+\item[i)]$X_\tau^0:=X_0,$
+\item[ii)]$X_\tau^{n+1}$ ist ein Minimierer des Minimerungsproblems
 \begin{eqnarray}
-\min\left[E(X)+\dfrac{\dist(X_\tau^n,X)^2}{2\tau}\right] \label{Min}
+\min_{X\in\RR^k}\left[E(X)+\dfrac{\Vert X_\tau^n-X\Vert^2}{2\tau}\right] \label{Min}
 \end{eqnarray}
-Sei $X_\tau$ auf $\RR_+$ als stückweise konstante Funktion mit Wert $X_\tau(t)=X^n_\tau$ für $t\in [n\tau,(n+1)\tau)$ definiert.
-\end{defi}
+\end{itemize}
+Sei $\bar{X}_\tau:\RR_{\geq0}\to\RR^k$  als stückweise konstante Funktion mit Wert $X_\tau(t)=X^n_\tau$ für $t\in [n\tau,(n+1)\tau)$ definiert.
+
 
 \begin{bem}
 \begin{enumerate}
 \item Wir setzen zunächst keine Eindeutigkeit des Minimums voraus;
-\item Existenz des Minimierers muss durch geeignete Eigenschaften von $E(X)$ gesichert werden, z.B. Koerzivität, Weakly lower semicontinuity und eine untere Schranke bzw. Wachstumsbedingung. 
-\item Verdeutlichen wir uns, warum dies unser anfängliches Problem approximieren soll:\\
-Betrachtet man den euklidischen Abstand, so besitzt das Problem (\ref{Min}) einen kritischen Punkt (der für $E(X)$ konvex ein globales Minimum ist) bei $X_\tau^{n+1}$ gegeben durch 
-\begin{eqnarray*}
-\dfrac{X_\tau^n-X_\tau^{n+1}}{\tau}=-\grad E(X_\tau^{n+1}),
-\end{eqnarray*}
-wobei die linke Seite offensichtlich eine Approximation der zeitlichen Ableitung von $X(t)$ ist.
+\item Existenz des Minimierers muss durch geeignete Eigenschaften von $E(X)$ gesichert werden, z.B. strikte Konvexität, untere Schranke.
 \end{enumerate}
 \end{bem}
 \vspace{3pt}
-Nach Aufstellen der Diskretisierung wollen wir $\tau \to 0$ gehen lassen und betrachten den Grenzwert, den "'generalisierten Gradientenfluss"'.
-Um zu zeigen, dass dieser Grenzwert exisitert und die Ausgangsgleichung erfüllt, wollen wir zunächst einige Eigenschaften untersuchen. 
+
+Wir beginnen damit, den Zusammenhang zwischen dem approximierten Gradientenfluss und dem Ausgangsproblem zu untersuchen.
+
+\begin{lem}
+$X_\tau^m,X_\tau^{m+1}\subset(X_\tau^n)_{n\geq 0}$ erfüllen für $\omega\in\RR^k$: \\
+\begin{equation}
+-\grad E(X_\tau^{m+1})\cdot\omega= \dfrac{ X_\tau^{m+1}-X_\tau^m}{\tau}\cdot\omega \label{approxgrad}
+\end{equation}
+\end{lem}
+
+\begin{proof}
+Dabei wird eine Strategie eingeführt, der auch - in einem etwas umfangreicherem Setting - der nächste Abschnitt über die Fokker-Planck-Gleichung folgt. \\
+Wir befinden uns im $\RR^k$. Sei $\omega$ ein beliebiger (Tangenten-)Vektor auf $X_\tau^{n+1}$. Wir betrachten Perturbationen von $X_\tau^{n+1}$ "'entlang $\omega$"': Definiere für ein kleines $\varepsilon>0$ einen "'Pfad"' $\tilde{X}_\varepsilon$ folgendermaßen: \\
+\begin{eqnarray}
+\tilde{X}_0=X_\tau^{n+1},~~\dfrac{d\tilde{X}_\varepsilon}{d\varepsilon}\Bigg|_{\varepsilon=0} =\omega
+\end{eqnarray}
+Essentiell für die folgenden Schritte ist, dass die Ableitung an der Stelle $\varepsilon$ gleich Null ist. Der Einfachheit halber nehmen wir die lineare Form $\tilde{X}_\varepsilon=X_\tau^{n+1}+\varepsilon\omega$ an.\\
+(Anmerkung: Wenn wir allgemeinere Perturbationen betrachten wollen, verfahren wir ganz analog, indem wir nach Taylor \begin{align}
+\tilde{X}_\varepsilon = X_0+\dfrac{d\tilde{X}_\varepsilon}{d\varepsilon}\Bigg|_{\varepsilon=0}\cdot\varepsilon+O(\varepsilon^2),\\
+E(\tilde{X}_\varepsilon)=E(X_\tau^{n+1})+\varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2) \label{b)}
+\end{align}
+verwenden.)\\\\
+
+
+
+Da $X_\tau^{n+1}$ Minimierer ist, gilt offensichtlich
+\begin{eqnarray}
+E(X_\tau^{n+1})+\dfrac{\Vert X_\tau^n-X_\tau^{n+1}\Vert^2}{2\tau}\leq E(\tilde{X}_\varepsilon)+\dfrac{\Vert X_\tau^n-\tilde{X}_\varepsilon\Vert^2}{2\tau}~~~\forall \varepsilon>0 \label{a)}\\
+\overset{\cdot\frac{1}{\varepsilon}}\Leftrightarrow \dfrac{E(X_\tau^{n+1})-E(\tilde{X}_\varepsilon)}{\varepsilon}\leq \dfrac{\Vert X_\tau^n-\tilde{X}_\varepsilon\Vert^2-\Vert X_\tau^n-X_\tau^{n+1}\Vert^2}{2\tau\varepsilon}\\
+\Leftrightarrow -\dfrac{E(X_\tau^{n+1}+\varepsilon\omega)-E(X_\tau^{n+1})}{\varepsilon}\leq \dfrac{\Vert X_\tau^n-X_\tau^{n+1}-\varepsilon\omega\Vert^2-\Vert X_\tau^n-X_\tau^{n+1}\Vert^2}{2\tau\varepsilon}
+\end{eqnarray}
+Wir schreiben nun vor beide Seiten $\lim_{\varepsilon\to 0}$ und interpretieren diese Differenzenquotienten als Ableitungen nach $\varepsilon$. Wir erhalten (mit $\begin{aligned}\dfrac{d}{d\varepsilon}\Vert X_\tau^n-X_\tau^{n+1}-\varepsilon\omega\Vert^2=\dfrac{d}{d\varepsilon}(...)_1^2+(...)_2^2+...=2(...)_1\cdot(-\omega_1)+(...)\end{aligned}$) :
+\begin{equation}
+-\grad E(X_\tau^{n+1})\cdot\omega\leq \dfrac{\langle X_\tau^{n+1}-X_\tau^n,\omega\rangle}{\tau}
+\end{equation}
+Gleichheit wird durch die Betrachtung von $-\omega$ erreicht.
+\end{proof}
+
+Bevor wir $\tau \to 0$ gehen lassen und betrachten, ob ein Grenzwert existiert und tatsächlich unsere Ausgangsgleichung \ref{eq1} erfüllt, wollen wir zunächst einige Eigenschaften untersuchen. 
 
 \subsection{Drei Ungleichungen}
-Sei $\Vert \cdot \Vert$ die (euklidische) Norm. Für den nächsten Abschnitt verwenden wir der Anschaulichkeit halber den dadurch induzierten euklidischen Abstand,, verwenden jedoch keine Eigenschaften, die über diejenigen jeder anderen beliebigen norminduzierten Distanz hinausgehen, sodass die Aussagen für jede Distanz gelten.\\
- Wir nehmen an, dass $E$ nach unten durch eine absolute Konstante beschränkt ist, d.h. $E(X)\geq C$ unabh. von $X$.
-\newline
+
 
 
 $X_\tau^{n+1}$ ist ein Minimierer des Funktionals $X \mapsto E(X)+\dfrac{\Vert X_\tau^n-X\Vert^2}{2\tau}$. Damit ist offensichtlich das Funktional an der Stelle $X_\tau^{n+1}$ kleiner gleich dessen Wert an der Stelle $X_\tau^n$ ($\Vert X_\tau^n-X_\tau^n\Vert=0$). Damit haben wir
@@ -121,65 +150,59 @@ E(X_\tau^{n+1})+\dfrac{\Vert X_\tau^n-X_\tau^{n+1}\Vert^2}{2\tau}\leq E(X_\tau^n
 Folgt sofort aus (\ref{ineq1}), da der zweite Term nichtnegativ und somit die Folge der $(E(X_\tau^n))$ für steigendes n monoton abnehmend ist. 
 \end{proof}
 
-\begin{lem}[total square distance estimate]
+\begin{lem}
 \begin{eqnarray}
-\sum_{n\geq 0}\Vert X_\tau^n-X_\tau^{n+1}\Vert^2\leq 2\tau (E(X^0)-\inf E)\label{totalsquare}
+\dfrac{\tau}{2}\sum_{n\geq 0} \left(\dfrac{\Vert X_\tau^n-X_\tau^{n+1}\Vert}{\tau}\right)^2\leq E(X^0)-\inf_{X\in\RR^k} E(X)\label{totalsquare}
 \end{eqnarray}
+Interpretation als kinetische Energie!
 \end{lem}
 \begin{proof}
-Summation über (\ref{ineq1}), Teleskopsumme, Infimum da $E(X_\tau^n)$ monoton fallend.
+Summation über (\ref{ineq1}), Teleskopsumme, Infimum da $E(X_\tau^n)$ monoton fallend. Infimum entweder über $X_\tau^n$ oder $X\in\RR^k$, möglich wegen unterer Schranke an Potential. 
 \end{proof}
 
 \begin{lem}[Hölder 1/2-Abschätzung für $X_\tau$]  $~~$ \\
 Für $s<t$ gilt:
 \begin{eqnarray}
-\Vert X_\tau(s)-X_\tau(t)\Vert^2 \overset{1)}\leq \left[\dfrac{t-s}{\tau}+1\right] \sum_{\frac{s}{\tau}\leq n \leq \frac{t}{\tau}} \Vert X^n_\tau- X_\tau^{n+1}\Vert^2 \overset{2)}\leq 2(E(X^0)-\inf E)[(t-s)+\tau]. \label{Hölder}
+\Vert \bar{X}_\tau(s)-\bar{X}_\tau(t)\Vert^2 \overset{1)}\leq \left[\dfrac{t-s}{\tau}+1\right] \sum_{\frac{s}{\tau}\leq n \leq \frac{t}{\tau}} \Vert X^n_\tau- X_\tau^{n+1}\Vert^2 \overset{2)}\leq 2(E(X^0)-\inf_X E)[(t-s)+\tau]. \label{Hölder}
 \end{eqnarray}
 \end{lem}
 
 \begin{proof}
 \begin{itemize}
 \item[2)] folgt wiederum aus Aufsummation von (\ref{ineq1}) und Monotonie.
-\item[1)] Nach Definition: $X_\tau(s)=X_\tau^n$ für $s\in [n\tau,(n+1)\tau)$. Damit gilt für $n$: $n=\lfloor \frac{s}{	\tau}\rfloor$. Analog sei $X_\tau(t)=X_\tau^m$, $m=\lfloor\frac{t}{\tau}\rfloor+1$.\\
+\item[1)] Nach Definition: $X_\tau(s)=X_\tau^n$ für $s\in [n\tau,(n+1)\tau)$. Damit gilt für $n$: $n=\lfloor \frac{s}{	\tau}\rfloor$. Analog sei $X_\tau(t)=X_\tau^m$, $m=\lfloor\frac{t}{\tau}\rfloor$.\\
 \begin{align*}
-\Vert X_\tau(s)-X_\tau(t)\Vert=&\Vert X_\tau^n-X_\tau^m\Vert \\\overset{\triangle -Ungl.}\leq&\Vert X_\tau^n-X_\tau^{n+1}\Vert+\Vert X_\tau^{n+1}-X_\tau^{n+2}\Vert+...+\Vert X_\tau^{m-1}-X_\tau^m\Vert\\
+\Vert \bar{X}_\tau(s)-\bar{X}_\tau(t)\Vert=&\Vert X_\tau^n-X_\tau^m\Vert \\\overset{\triangle -Ungl.}\leq&\Vert X_\tau^n-X_\tau^{n+1}\Vert+\Vert X_\tau^{n+1}-X_\tau^{n+2}\Vert+...+\Vert X_\tau^{m-1}-X_\tau^m\Vert\\
 =&\sum_{n\leq k\leq m-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert\\
 \Vert X_\tau(s)-X_\tau(t)\Vert^2\leq&\Bigg(\sum_{\frac{s}{\tau}\leq k\leq \frac{t}{\tau}}\Vert X_\tau^k-X_\tau^{k+1}\Vert\Bigg)^2 \\ \overset{CS}\leq&\Bigg(\sum_{\frac{s}{\tau}\leq k\leq \frac{t}{\tau}}\Vert X_\tau^k-X_\tau^{k+1}\Vert^2\Bigg)\underset{\frac{t}{\tau}-(\frac{s}{\tau}-1)}{\underbrace{\Bigg(\sum_{\frac{s}{\tau}\leq k\leq \frac{t}{\tau}}1\Bigg)}}
 \end{align*}
 \end{itemize}
 \end{proof}
-Diese drei Abschätzungen stellen uns die relative Kompaktheit von $(X_\tau)$ für $\tau \to 0$ sicher, und damit die Existenz einer konvergenten Teilfolge.  \\
 
 
 
 
+\begin{bem}
+Wir haben hier nie die besonderen Eigenschaften der euklidischen Norm benutzt! Diese Ungleichungen gelten auch bei approximierten Gradientenflüssen jeder beliebigen anderen Norm.
+\end{bem}
 
-\subsection{Perturbationen oder löst mein Grenzwert den Gradientenfluss?}
-
-Sei eine zugrundeliegende Riemannstruktur (Differenzierbare Mannigfaltigkeit, Metrik, Tangentenräume) gegeben und das Energie-Funktional hinreichend glatt. \\
-Wir wollen nun noch einmal betrachten, warum die Lösung unseres Minimerungsproblem einen Gradientenfluss approximiert. Dabei wird eine Strategie eingeführt, der auch - in einem etwas umfangreicherem Setting - der nächste Abschnitt über die Fokker-Planck-Gleichung folgt. \\
-Wir befinden uns im $\RR^k$. Sei $\omega$ ein beliebiger Tangentenvektor auf $X_\tau^{n+1}$. Wir betrachten Perturbationen von $X_\tau^{n+1}$ "'entlang $\omega$"': Definiere für ein kleines $\varepsilon>0$ einen "'Pfad"' $\tilde{X}_\varepsilon$ folgendermaßen: \\
-\begin{eqnarray}
-\tilde{X}_0=X_\tau^{n+1},~~\dfrac{d\tilde{X}_\varepsilon}{d\varepsilon}\Bigg|_{\varepsilon=0} =\omega
-\end{eqnarray}
-Essentiell für die folgenden Schritte ist, dass die Ableitung an der Stelle $\varepsilon$ gleich Null ist. Der Einfachheit halber nehmen wir die lineare Form $\tilde{X}_\varepsilon=X_\tau^{n+1}+\varepsilon\omega$ an.\\
-Anmerkung: Wenn wir allgemeinere Perturbationen betrachten wollen, verfahren wir ganz analog, indem wir nach Taylor \begin{eqnarray}
-\tilde{X}_\varepsilon = X_0+\dfrac{d\tilde{X}_\varepsilon}{d\varepsilon}\Bigg|_{\varepsilon=0}\cdot\varepsilon+O(\varepsilon^2),\\
-E(\tilde{X}_\varepsilon)=E(X_\tau^{n+1})+\varepsilon\langle \grad E(X_\tau^{n+1}),\omega\rangle+O(\varepsilon^2) \label{b)}
-\end{eqnarray}
-verwenden.\\
-Da $X_\tau^{n+1}$ Minimierer ist, gilt offensichtlich
-\begin{eqnarray}
-E(X_\tau^{n+1})+\dfrac{\Vert X_\tau^n-X_\tau^{n+1}\Vert^2}{2\tau}\leq E(\tilde{X}_\varepsilon)+\dfrac{\Vert X_\tau^n-\tilde{X}_\varepsilon\Vert^2}{2\tau}~~~\forall \varepsilon>0 \label{a)}\\
-\overset{\cdot\frac{1}{\varepsilon}}\Leftrightarrow \dfrac{E(X_\tau^{n+1})-E(\tilde{X}_\varepsilon)}{\varepsilon}\leq \dfrac{\Vert X_\tau^n-\tilde{X}_\varepsilon\Vert^2-\Vert X_\tau^n-X_\tau^{n+1}\Vert^2}{2\tau\varepsilon}\\
-\Leftrightarrow -\dfrac{E(X_\tau^{n+1}+\varepsilon\omega)-E(X_\tau^{n+1})}{\varepsilon}\leq \dfrac{\Vert X_\tau^n-X_\tau^{n+1}+\varepsilon\omega\Vert^2-\Vert X_\tau^n-X_\tau^{n+1}\Vert^2}{2\tau\varepsilon}
-\end{eqnarray}
-Wir schreiben nun vor beide Seiten $\lim_{\varepsilon\to 0}$ und interpretieren diese Differenzenquotienten als Ableitungen nach $\varepsilon$. Wir erhalten:
+Diese drei Abschätzungen stellen uns die relative Kompaktheit von $(\bar{X}_\tau)$ für $\tau \to 0$ sicher, und damit die Existenz einer konvergenten Teilfolge.  \\
+\begin{cor}
+\begin{eqnarray*}
+\bar{X}_\tau(t) \overset{\tau\to0}{\longrightarrow} X \in \mathcal{C}^{1/2}([0,\infty);\RR^k) \text{ gleichmäßig bzgl. }t\geq 0,
+\end{eqnarray*}
+und es gilt für alle $0\leq t_1\leq t_2<\infty$:
 \begin{equation}
--\grad E(X_\tau^{n+1})\cdot\omega\leq \dfrac{\langle X_\tau^n-X_\tau^{n+1},\omega\rangle}{\tau}
+-\int_{t_1}^{t_2}\grad E(X(t))\cdot \omega dt = [X(t_2)-X(t_1)]\cdot\omega
 \end{equation}
-Gleichheit wird durch die Betrachtung von $-\omega$ erreicht, und damit haben wir eine schwache Formulierung unsers approximierten Gradientenflusses.\\
-(Für explizite $\omega$ können wir auch viele weitere Ungleichungen herleiten.)
+\end{cor}
+
+\begin{proof}
+Wir beginnen mit (\ref{approxgrad}) und summieren:\\
+\begin{align*}
+\grad E(X_\tau^{m+1})\cdot\omega= \dfrac{ X_\tau^{m+1}-X_\tau^m}{\tau}\cdot\omega
+\end{align*}
+\end{proof}
 
  
 
