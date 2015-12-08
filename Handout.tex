@@ -113,11 +113,11 @@ Für $s<t$ gilt:
 
 \begin{cor}
 \begin{eqnarray*}
-\bar{X}_{\tau_i}(t) \overset{\tau_i\to0}{\longrightarrow} X \in \mathcal{C}^{\dfrac{1}{2}}([0,\infty);\RR^k) \text{ gleichmäßig bzgl. }t\geq 0,
+\bar{X}_{\tau_i}(t) \overset{\tau_i\to0}{\longrightarrow} X \in \mathcal{C}^{\frac{1}{2}}([0,\infty);\RR^k) \text{ gleichmäßig bzgl. }t\geq 0,
 \end{eqnarray*}
 und es gilt für alle $0\leq t_1\leq t_2<\infty$:
 \begin{equation}
--\int_{t_1}^{t_2}\grad E(X(t))\cdot \omega dt = [X(t_2)-X(t_1)]\cdot\omega
+-\int_{t_1}^{t_2}\grad E(X(t))\cdot \omega~ dt = [X(t_2)-X(t_1)]\cdot\omega
 \end{equation}
 \end{cor}
 
@@ -139,7 +139,7 @@ Sei $T>0$. $\rho(\cdot,t)\in P_{ac,2}(\RR^d)$ erfüllt die (LFP) im schwachen Si
 \vspace{10pt}
 
 \begin{defi}
-Für eine Wahrscheinlichkeitsdichte $\rho(x)\in P_{ac,2}(\RR^d)$ und ein Potential $V\in L^1(\RR^d)$ sei das \textbf{Freie Energie Funktional $H(\rho)$} gegeben durch:
+Für eine Wahrscheinlichkeitsdichte $\rho(x)\in P_{ac,2}(\RR^d)$ und ein Potential $V\in L^1(\RR^d)$ ist das \textbf{Freie Energie Funktional $H(\rho)$} gegeben durch:
 \begin{equation}
 H(\rho):=\int_{\RR^d} \rho\log\rho~ dx + \int_{\RR^d}\rho V dx \label{FEFktn}
 \end{equation}
@@ -149,20 +149,20 @@ Interpretation: (FP) entspricht $\dfrac{\partial\rho}{\partial t} = -\grad_{W_2}
 
 \begin{theorem}
 Sei $V\in \mathcal{C}^2(\RR^d)$ ein Potential, sodass $V(x)=O(\vert x \vert^2)$ für $x\to\infty$. \\
-Sei $\rho_0\in P_{ac}(\RR^d)$ derart, dass für das Freie Energie Funktional gilt $H(\rho_0)<\infty$. Sei $\tau>0$.\\\\
+Sei $\rho_0\in P_{ac,2}(\RR^d)$ derart, dass für das Freie Energie Funktional gilt $H(\rho_0)<\infty$. Sei $\tau>0$.\\\\
 Sei außerdem $\bar{\rho}_\tau(x,t)$ der approximierte Gradientenfluss für $H(\rho)$ bzgl. der quadratischen Wassersteinmetrik. 
 Dann gilt: \\
 \begin{equation*}
 \bar{\rho}_\tau(x,t)\rightharpoonup \rho(x,t) \text{ in } L^1(\RR^d) \text{ für } \tau\to 0,
 \end{equation*}
-wobei $\rho(x,t)\in C^\infty(\RR^d\times(0,\infty))$ die eindeutige Lösung der linearen Fokker-Planck-Gleichung mit Anfangswert $\rho_0$ ist. \\\\
+wobei $\rho\in C^\infty(\RR^d\times(0,\infty))$ die eindeutige Lösung der linearen Fokker-Planck-Gleichung mit Anfangswert $\rho_0$ ist. \\\\
 Der approximierte Gradientenfluss $\bar{\rho}_\tau:(0,\infty)\times\RR^d\to[0,\infty)$ wird hierbei analog zu Abschnitt 1 konstruiert:
 \begin{equation*}
 \bar{\rho}_\tau(t):=\rho_\tau^n ~\text{ für }t\in[n\tau,(n+1)\tau)
 \end{equation*}
 für die Folge $(\rho_\tau^n)_n,~n\in\NN_0$:
 \begin{itemize}
-\item[i)]$\begin{aligned}[t]\rho_\tau^0=\rho^0; \end{aligned}$
+\item[i)]$\begin{aligned}[t]\rho_\tau^0:=\rho^0; \end{aligned}$
 \item[ii)]$\begin{aligned}[t]
 \rho_\tau^{n+1}=\underset{\rho\in\mathcal{P}_{2}(\RR^d)}{\operatorname{argmin}}\left\{H(\rho)+\dfrac{W_2(\rho_\tau^n,\rho)^2}{2\tau}\right\}
 \end{aligned}$\end{itemize}
