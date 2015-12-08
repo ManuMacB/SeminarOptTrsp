@@ -174,7 +174,7 @@ Für $s<t$ gilt:
 \begin{align*}
 \Vert \bar{X}_\tau(s)-\bar{X}_\tau(t)\Vert=&\Vert X_\tau^n-X_\tau^m\Vert \\\overset{\triangle -Ungl.}\leq&\Vert X_\tau^n-X_\tau^{n+1}\Vert+\Vert X_\tau^{n+1}-X_\tau^{n+2}\Vert+...+\Vert X_\tau^{m-1}-X_\tau^m\Vert\\
 =&\sum_{n\leq k\leq m-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert=\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert\\
-\Vert \bar{X}_\tau(s)-\bar{}X_\tau(t)\Vert^2\leq&\Bigg(\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert\Bigg)^2 \\ \overset{CS}\leq&\Bigg(\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert^2\Bigg)\underset{\frac{t}{\tau}-(\frac{s}{\tau}-1)}{\underbrace{\Bigg(\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}1\Bigg)}}
+\Vert \bar{X}_\tau(s)-\bar X_\tau(t)\Vert^2\leq&\Bigg(\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert\Bigg)^2 \\ \overset{CS}\leq&\Bigg(\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert^2\Bigg)\underset{\frac{t}{\tau}-(\frac{s}{\tau}-1)}{\underbrace{\Bigg(\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}1\Bigg)}}
 \end{align*}
 \end{itemize}
 \end{proof}
@@ -187,6 +187,9 @@ Wir haben hier nie die besonderen Eigenschaften der euklidischen Norm benutzt! D
 \end{bem}
 
 Diese drei Abschätzungen stellen uns die relative Kompaktheit von $(\bar{X}_\tau)$ für $\tau \to 0$ sicher, und damit die Existenz einer konvergenten Teilfolge.  \\
+
+
+\subsection{Grenzwert erfüllt Gradientenfluss}
 \begin{cor}
 \begin{eqnarray*}
 \bar{X}_\tau(t) \overset{\tau\to0}{\longrightarrow} X \in \mathcal{C}^{1/2}([0,\infty);\RR^k) \text{ gleichmäßig bzgl. }t\geq 0,
@@ -202,21 +205,25 @@ Seien $t_1,t_2>0$. Wir beginnen mit (\ref{approxgrad}) und summieren von $n_1=\l
 \begin{align}
 \sum_{n_1}^{n_2}\dfrac{1}{\tau} (X_\tau^{m+1}-X_\tau^m)\cdot\omega=\sum_{n_1}^{n_2}-\grad E(X_\tau^{m+1})\cdot\omega
 \end{align}
-Beachte für die rechte Seite, dass  
+Beachte für die rechte Seite, dass $\forall n\in\NN_0$
 \begin{align*}
--\grad E(X^n)=\dfrac{1}{\tau}\int_{n\tau}^{n\tau+\tau}.
+-\grad E(X^n)=\dfrac{1}{\tau}\int_{n\tau}^{n\tau+\tau}-\grad E(\bar X_\tau(t))dt.
 \end{align*}
 Damit haben wir - linke Seite Teleskopsumme -
 \begin{align}
 \dfrac{1}{\tau}(X_\tau^{n_2+1}-X_\tau^{n_1})\cdot\omega=\dfrac{1}{\tau}\int_{(n_1+1)\tau}^{(n_2+2)\tau}-\grad E(\bar{X}_\tau(t))\cdot\omega dt\\
 \Leftrightarrow (\bar{X}_\tau(t_2)-\bar{X}_\tau(t_1))\cdot\omega = \int_{t_1}^{t_2}-\grad E(\bar{X}_\tau(t))\cdot\omega dt+O(\tau),
 \end{align}
-wobei $O(\tau)$ daraus folgt, dass wir eine Integral über $<\tau$ eine (E glatt, endlich..) beschränkte Funktion bilden. \\
-Die vorherigen Ungleichungen sichern uns die Existenz einer konvergenten (Teil-)Folge von $\bar{X}_\tau$ für $\tau\to 0$. $-\grad E$ ist glatt und konvergiert damit ebenfalls gegen $-\grad E(X)$. $O(\tau)$ konvergiert natürlich gegen Null. Wir bekommen damit eine schwache Formulierung unseres ursprünglichen Gradientenflusses (\ref{eq1})!
+wobei wir den Restterm $O(\tau)$ auch explizit schreiben können:
+\begin{align*}
+-\int_{t_1}^{(n_1+1)\tau}-\grad E(\bar X_\tau(t))\cdot\omega dt+\int_{t_2}^{(n_2-2)\tau}-\grad E(\bar X_\tau(t))\cdot\omega dt\\
+=+\grad E(\bar X_\tau(t_1))\underset{\leq\tau}{\underbrace{((n_1+1)\tau-t_1)}}-\grad E(\bar X_\tau(t_2))\underset{\leq\tau}{\underbrace{((n_2+2)\tau-t_2)}}=O(\tau)
+\end{align*}
+Die vorherigen Ungleichungen sichern uns die Existenz einer konvergenten (Teil-)Folge von $\bar{X}_\tau$ für $\tau\to 0$ (genäherte gleichgradige Stetigkeit; Beschränktheit; $1/2$ wegen Hölder! Art Ascola-Aszoli.). $-\grad E$ ist glatt und konvergiert damit ebenfalls gegen $-\grad E(X)$. $O(\tau)$ konvergiert natürlich gegen Null. Wir bekommen damit eine schwache Formulierung unseres ursprünglichen Gradientenflusses (\ref{eq1})!
 \begin{equation*}
 \int_{t_1}^{t_2}\grad E(X(t))\cdot \omega dt = [X(t_2)-X(t_1)]\cdot\omega
 \end{equation*}
-
+Und das ist genau das Ziel dieses Vortrages. Wir sehen: variationelle Konstruktion konvergiert gegen richtige Lösung.  
 \end{proof}
 
  
@@ -225,9 +232,9 @@ Die vorherigen Ungleichungen sichern uns die Existenz einer konvergenten (Teil-)
 \section{Die lineare Fokker-Plank-Gleichung, Monge-Kantorovich und der approximierte Gradientenfluss}
 
 (Notation in diesem Abschnitt: $\rho=\rho(x,t)$)\\\\
-Diese Strategie wurde zum ersten Mal am Beispiel der linearen Fokker-Plank-Gleichung angewandt. \\
+Wir können diesen Ansatz jetzt dazu verwenden, zu partiellen Differentialgleichungen passende Energiefunktionale in beliebigen metrischen Räumen zu suchen. Diese Strategie wurde zum ersten Mal am Beispiel der linearen Fokker-Plank-Gleichung angewandt. \\
 \begin{defi}
-Die \textbf{lineare Fokker-Planck-Gleichung} (FP) mit glattem Potential $V:\RR^d\to[0,\infty)$ und Anfangswert $\rho_0\in\mathcal{P}_{ac,2}$, asbolut stetige Wahrscheinlichkeitsdichte mit zweitem endlichen Moment auf $\RR^d$, ist gegeben durch:
+Die \textbf{lineare Fokker-Planck-Gleichung} (FP) mit glattem Potential $V:\RR^d\to[0,\infty)$ und Anfangswert $\rho_0\in\mathcal{P}_{ac,2}$, absolut stetige Wahrscheinlichkeitsdichte mit zweitem endlichen Moment auf $\RR^d$, ist gegeben durch:
 \begin{eqnarray}
 \begin{split}
 \dfrac{\partial\rho}{\partial t}=\Delta\rho+\nabla\cdot(\rho\nabla V),\\
@@ -262,10 +269,10 @@ H(\rho):=\int_{\RR^d} \rho\log\rho dx + \int_{\RR^d}\rho V dx \label{FEFktn}
 \begin{itemize}
 \item Das Freie Energie Funktional ist wohldefiniert für Lösungen $\rho(x,t)$ der (LFP), falls $H(\rho_0)<\infty$.
 \item $H(\rho(x,t))$ ist für Lösungen des (LFP) bzgl. der Zeit monoton abnehmend.\end{itemize}
-\item Nach der Definition des letzten Vortrages betrachten wir die Summe aus interner und potentieller Energie.
+\item Nach der Definition des letzten Vortrages betrachten wir die Summe aus interner und potentieller Energie. Alternativ: erster Term (Shannon)-Entropie (Maß für Unsicherheit).
 \end{bem}
 
-Wir wollen die Beziehung zwischen Fokker-Planck und dem freien Energie-Funktional zeigen, d.h. dass die Dynamik als Gradientenfluss interpretiert werden kann für die Frei Energie mit der Wassersteinmetrik, d.h. die Lösung der Gleichung folgt der Richtung des steilsten Abstieges des Funktionals. Die für dieses Setting benötigte Metrik wird die bereits eingeführte Wassersteinmetrik sein. \\Otto:(FP) entspricht $\dfrac{\partial\rho}{\partial t} = -\grad_{W_2} H(\rho)$\\
+Wir wollen zeigen, dass die Lösung der Gleichung der Richtung des steilsten Abstieges bzgl. der Wassersteinmetrik des Funktionals folgt. \\Otto:(FP) entspricht $\dfrac{\partial\rho}{\partial t} = -\grad_{W_2} H(\rho)$\\
 
 Wiederholung:
 \begin{defi}
@@ -300,20 +307,21 @@ für die Folge $(\rho_\tau^n)_n,~n\in\NN_0$:
 
 Das heißt eben genau: Die Fokker-Planck-Gleichung ist der Gradientenfluss für das Freie-Energie Funktional mit der Wassersteindistanz.
 
+\subsection{Der Beweis}
 
 \begin{proof}
 \begin{enumerate}
-\item Da H strikt konvex im üblichen Sinne ist, ebenso wie die Wassersteinmetrik, ist der Minimierer in (\ref{rho^n})  eindeutig. Auch möglich: nach dem letzten Vortrag ist für $V$ konvex das Funktional displacement konvex. 
-\item Analog zu (\ref{enest}) erhält man eine obere Grenze für unser Funktional: ${\sup_{t\geq 0} H(\bar{\rho}_\tau(t))=\sup_n H(\rho_\tau^n)\leq H(\rho_0)}$.\\
+\item Da H strikt konvex im üblichen Sinne ist, ebenso wie die Wassersteinmetrik konvex ist, ist der Minimierer in (\ref{rho^n})  eindeutig. Auch möglich: nach dem letzten Vortrag ist für $V$ konvex das Funktional displacement konvex. Warum überhaupt ein Minimierer existiert: Würde über den heutigen Vortrag hinausgehen. Distanz muss mehr wachsen als H gegen $-\infty$ gehen für flache $\rho$.
+\item Analog zu (\ref{enest}) erhält man eine obere Grenze für unser Funktional:\\ ${\sup_{t\geq 0} H(\bar{\rho}_\tau(t))=\sup_n H(\rho_\tau^n)\leq H(\rho_0)}$.\\
 Dies garantiert die Straffheit der Familie $(\bar{\rho}_\tau)_{\tau >0}$ in der x-Variable sowie schwache $L^1$-Kompaktheit.\\
-Die Hölder 1/2 Ungleichung (\ref{Hölder}) hinsichtlich der Wassersteindistanz sichert gleichgradige Stetigkeit bzgl. $t$ von $(\bar{\rho}_\tau)_\tau$.\\ ($W_2(\bar{\rho}_\tau(s)-\bar{\rho}_\tau(t))<\varepsilon \forall \vert s-t\vert<\delta$; $\forall \varepsilon$ setze $\delta=\frac{\varepsilon^2}{2(E(\rho_0)-\inf E)}-\tau$)\\\\
+Die Hölder 1/2 Ungleichung (\ref{Hölder}) hinsichtlich der Wassersteindistanz sichert genäherte gleichgradige Stetigkeit bzgl. $t$ von $(\bar{\rho}_\tau)_\tau$.\\ ($W_2(\bar{\rho}_\tau(s)-\bar{\rho}_\tau(t))<\varepsilon \forall \vert s-t\vert<\delta$; $\forall \varepsilon$ setze $\delta=\frac{\varepsilon^2}{2(H(\rho_0)-\inf H)}-\tau$)\\\\
 $\Rightarrow$ All dies ist hinreichend, damit(betrachte falls nötig Teilfolge)$(\bar{\rho}_\tau)_\tau$ zu einer Funktion $\rho: \RR_{\geq0} \mapsto P_{ac,2}(\RR^d)$ konvergiert, stetig falls $P_{ac,2}(\RR^d)$ mit der schwachen $L^1$-Topologie verknüpft ist. \\
 \item Erfüllt nun dieser Grenzwert den Satz, d.h. die (FK)? \\
 Wir betrachten eine geeignete Variation von $\rho_\tau^{n+1}$. Ein wenig komplexer als in Abschnitt 1 (dort war es $X_\tau^{n+1}+\varepsilon\omega$), um unserer Wassersteindistanz gerecht zu werden, jedoch mit dem gleichen Ziel.\\
-Sei $\xi$ ein glattes Vektorfeld mit kompaktem Träger, und $T_\varepsilon$ eine Familie von Kurven verknüpft mit dem Vektorfeld $\operatorname{Id} +\varepsilon\xi$. Dann definiere folgende Perturbation:
+Sei $\xi\in\mathcal{C}_c^\infty(\RR^d,\RR^d)$ ein glattes Vektorfeld mit kompaktem Träger, und $T_\varepsilon$ eine Familie von Kurven verknüpft mit dem Vektorfeld $\operatorname{Id} +\varepsilon\xi$. Dann definiere folgende Perturbation:
 \[\tilde{\rho}_\varepsilon=T_\varepsilon \#\rho_\tau^{n+1} \]
 (Pushforward: $(\tilde{\rho}_\varepsilon \mathcal{L}^d)(B)=(\rho_\tau^{n+1}\mathcal{L}^d)(T_\varepsilon^{-1}(B))$)\\
-Für $\varepsilon$ klein genug ist $T_\varepsilon$ ein $C^1$-Diffeomorphismus) und invertierbar ($\det(\nabla T_\varepsilon)>0$.\\
+Für $\varepsilon$ klein genug ist $T_\varepsilon$ ein $C^1$-Diffeomorphismus und invertierbar ($\det(\nabla T_\varepsilon)>0$).\\
 \item Es gilt aufgrund der Invertierbarkeit von $T_\varepsilon$ mithilfe von Substitution und McCann-Theorem (Vortrag Alex):  
 \begin{align}
 H(\tilde{\rho}_\varepsilon)=&\int\tilde{\rho}_\varepsilon\log\tilde{\rho}_\varepsilon+\int\tilde{\rho}_\varepsilon V\\
@@ -337,7 +345,7 @@ Damit kommen wir auf
 \end{split}
 \end{align}
 wobei die Nichtnegativität aus der Minimierungseigenschaft von $\rho_\tau^{n+1}$ folgt.\\
-Nun dividieren wir durch $\varepsilon$ und lassen dieses gegen $0^+$ gehen, analog zu Abschnitt 1, Beweis des 1.Lemmas. Grenzwerte und Integrale dürfen wir vertauschen, da unsere Funktionen beschränkt bzw. Wahrscheinlichkeitsmaße endlichen zweiten Moments sind (deswegen auch die Wachstumsbedingungen!!) Die sich ergebenden "'Differenzenquotienten"' formulieren wir als Ableitungen an der Stelle $\varepsilon=0$. Damit wird (\ref{inequ}) zu: 
+\item Nun dividieren wir durch $\varepsilon$ und lassen dieses gegen $0^+$ gehen, analog zu Abschnitt 1, Beweis des 1.Lemmas. Grenzwerte und Integrale dürfen wir vertauschen, da unsere Funktionen beschränkt bzw. Wahrscheinlichkeitsmaße endlichen zweiten Moments sind (deswegen auch die Wachstumsbedingungen!!) Die sich ergebenden "'Differenzenquotienten"' formulieren wir als Ableitungen an der Stelle $\varepsilon=0$. Damit wird (\ref{inequ}) zu: 
 \begin{align*}
 0\leq& \lim_{\varepsilon\to 0^+} \Bigg(\dfrac{1}{2\tau} \int\left(\dfrac{\vert x-\nabla \phi(x)-\varepsilon\xi\circ\nabla\phi(x)\vert^2-\vert x-\nabla\phi(x)\vert^2}{\varepsilon}\right)\rho_\tau^n(x)dx\\
 +&\int\frac{1}{\varepsilon}[V(x+\varepsilon\xi(x))-V(x)]\rho_\tau^{n+1}(x)dx-\int\dfrac{\log( \det(I_k+\varepsilon\nabla\xi(x)))-\log(\det I_k)}{\varepsilon}\rho_\tau^{n+1}(x)dx \Bigg)\\
@@ -349,7 +357,7 @@ Da dies genauso für $-\xi$ gilt, bekommen wir Gleichheit. Umformuliert:
 \begin{equation}
 \frac{1}{\tau} \int \rho_\tau^n(x)\left\langle\nabla\phi(x)-x,\xi\circ\nabla\phi(x)\right\rangle dx\\=\int\rho_\tau^{n+1}(x)\left[(\nabla\cdot \xi)(x)-\langle\nabla V(x),\xi(x)\rangle \right]dx \label{eqwithxi}
 \end{equation}
-\item Jetzt sei $\xi$ derart, dass für ein $\psi\in \mathcal{C}^\infty_c(\RR^n)$ gilt $\xi=\nabla\psi$. Es gilt (Taylor):
+\item Jetzt sei $\xi$ derart, dass für ein $\psi\in \mathcal{C}^\infty_c(\RR^d)$ gilt $\xi=\nabla\psi$. Es gilt (Taylor):
 \begin{equation}
 \psi(\nabla\phi(x))-\psi(x)=\left\langle\nabla\phi(x)-x,\nabla\psi\circ\nabla\phi(x)\right\rangle+O(\vert x-\nabla\phi(x)\vert^2
 \end{equation}
@@ -361,13 +369,13 @@ und damit kann die linke Seite von (\ref{eqwithxi})ersetzt werden durch
 \item Nun setzt man dies in (\ref{eqwithxi}) ein und es wird aufsummiert von $n_1=\lfloor t_1/\tau\rfloor$ bis zu $n_2=\lfloor t_2/\tau\rfloor-1$ für $t_1,t_2\in[0,\infty)$ beliebige Zeiten (Grenzen: siehe Abschnitt 1, Beweis Corollar):
 \begin{eqnarray}
 \dfrac{1}{\tau}\Bigg(\int\bar{\rho}_\tau(t_2)\psi dx-\int\bar{\rho}_\tau(t_1)\psi dx+\underset{(*)}{\underbrace{O\left(\sum_{n=n_1}^{n_2}W_2(\rho_\tau^n,\rho_\tau^{n+1})^2\right)}}\Bigg)\\
-=\sum_{n_1}^{n_2}\int\rho_\tau^{n+1}(x)\left[(\nabla\cdot \nabla\psi)(x)-\langle\nabla V(x),\nabla\psi(x)\rangle \right]dx \\=\dfrac{1}{\tau}\int_{t_1}^{t_2}\int\bar{\rho}_\tau(t)(\Delta\psi-\nabla V\cdot\nabla\psi)dx dt+O(\tau)
+=\sum_{n_1}^{n_2}\int\rho_\tau^{n+1}(x)\left[(\nabla\cdot \nabla\psi)(x)-\langle\nabla V(x),\nabla\psi(x)\rangle \right]dx \\=\dfrac{1}{\tau}\left(\int_{t_1}^{t_2}\int\bar{\rho}_\tau(t)(\Delta\psi-\nabla V\cdot\nabla\psi)dx dt+O(\tau)\right)
 \end{eqnarray}
-Wobei $O(\tau)$ dem gerundeten Summationsgrenzen $n_1,n_2$ geschuldet ist: Der Fehlerterm ist 
-$\leq \tau \int\bar{\rho}_\tau(\Delta\psi-\nabla V\nabla\psi)\leq \tau\Vert\bar{\rho}_\tau\Vert_1\Vert\Delta\psi-\nabla V\nabla\psi\Vert_\infty=O(\tau)$ mithilfe der Hölderungleichung,\\
-wobei ja $\Delta\psi$ und $\nabla V\cdot\nabla\psi$  beschränkte Funktionen sind(kompakter Support) und $\bar{\rho}_\tau(t)=\bar{\rho}_\tau(t,\cdot)$ Wahrscheinlichkeitsmaß auf $\RR^k$ ist. (ähnliche Argumente, um im Vorangegangenen Grenzwerte und Integrale vertauschen zu dürfen)\\\\
-\item Die Kinetische Energie Abschätzung bzgl. $W_2$ liefert uns 
-\[(*)=O(2\tau(H(\rho_0)-\inf H))=O(\tau).\]
+\begin{itemize}
+\item Wobei $O(\tau)$ den gerundeten Summationsgrenzen $n_1,n_2$ geschuldet ist, wie bereits in Abschnitt 1; Der Fehlerterm sind wiederum zwei Integrale über ein mit $\tau\to0$ verschwindendes Intervall, die Funktionen im Inneren sind $C_c^\infty$ bzw. $\bar{\rho}_\tau(t)=\bar{\rho}_\tau(t,\cdot)$ ist Wahrscheinlichkeitsmaß auf $\RR^d$, sodass uns z.B. Hölder eine erforderliche Schranke liefert.
+\item  
+$(*)=O(2\tau(H(\rho_0)-H(\rho_\tau^{n_2+1})))=O(\tau)$ wie in kin.Energie Ungl etc.
+\end{itemize}
 Damit gilt schließlich für alle festen $t_1,~t_2\in [0,\infty)$:
 \begin{equation}
 \int\bar\rho_\tau(t_2)\psi-\int\bar\rho_\tau(t_1)\psi+O(\tau)=\int_{t_1}^{t_2}\int\bar\rho_\tau(t)(\Delta\psi-\nabla V\cdot\nabla\psi)dt+O(\tau)
