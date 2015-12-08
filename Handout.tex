@@ -68,8 +68,8 @@ Betrachte \begin{eqnarray}
 \end{eqnarray} wobei das Energie-Funktional $E:~\RR^k\to\RR$ glatt und nach unten beschränkt sei sowie ${E(X^0)<\infty}$. 
 \vspace{14pt}
 
-Variationelle Konstruktion des \textbf{approximierten Gradientenflusses} $(\bar{X}_\tau)$ mit der (euklidischen) Metrik:\newline
-Sei $\tau > 0$ die zeitliche Schrittweite, $n\in\NN_0$, dann ist die Folge $\left( X^n_\tau \right)_{n\geq 0}$ gegeben durch:
+Variationelle Konstruktion des \textbf{approximierten Gradientenflusses} $(\bar{X}_\tau)$ mit der euklidischen Metrik:\newline
+Sei $\tau > 0$ die zeitliche Schrittweite, $n\in\NN_0$, dann ist die Folge $\left( X^n_\tau \right)_{n\geq 0}$ definiert durch:
 \begin{itemize}
 \item[i)]$X_\tau^0:=X^0,$
 \item[ii)]$X_\tau^{n+1}$ ist eine Lösung des Minimierungsproblems
@@ -82,7 +82,7 @@ Dann sei $\bar{X}_\tau:\RR_{\geq0}\to\RR^k$ eine stückweise konstante Funktion 
 \vspace{12pt}
 
 \begin{lem}
-$X_\tau^m,X_\tau^{m+1}\subset(X_\tau^n)_{n\geq 0}$ erfüllen für $\omega\in\RR^k$: \\
+Alle $X_\tau^m,X_\tau^{m+1}\subset(X_\tau^n)_{n\geq 0}$ erfüllen für $\omega\in\RR^k$: \\
 \begin{equation}
 -\grad E(X_\tau^{m+1})\cdot\omega= \dfrac{ X_\tau^{m+1}-X_\tau^m}{\tau}\cdot\omega
 \end{equation}
@@ -107,13 +107,13 @@ $X_\tau^m,X_\tau^{m+1}\subset(X_\tau^n)_{n\geq 0}$ erfüllen für $\omega\in\RR^
 \begin{lem}[Hölder 1/2-Abschätzung für $\bar{X}_\tau$]  $~~$ \\
 Für $s<t$ gilt:
 \begin{eqnarray*}
-\Vert \bar{X}_\tau(s)-\bar{X}_\tau(t)\Vert^2 \leq \left[\dfrac{t-s}{\tau}+1\right] \sum_{\frac{s}{\tau}\leq n \leq \frac{t}{\tau}} \Vert X^n_\tau- X_\tau^{n+1}\Vert^2 \leq 2(E(X^0)-\inf_{X\in\RR^k} E(X))[(t-s)+\tau]. \label{Hölder}
+\Vert \bar{X}_\tau(s)-\bar{X}_\tau(t)\Vert^2 \leq \left[\dfrac{t-s}{\tau}+1\right] \sum_{\frac{s}{\tau}-1\leq n \leq \frac{t}{\tau}-1} \Vert X^n_\tau- X_\tau^{n+1}\Vert^2 \leq 2(E(X^0)-\inf_{X\in\RR^k} E(X))[(t-s)+\tau]. \label{Hölder}
 \end{eqnarray*}
 \end{lem}
 
 \begin{cor}
 \begin{eqnarray*}
-\bar{X}_\tau(t) \overset{\tau\to0}{\longrightarrow} X \in \mathcal{C}^{1/2}([0,\infty);\RR^k) \text{ gleichmäßig bzgl. }t\geq 0,
+\bar{X}_{\tau_i}(t) \overset{\tau_i\to0}{\longrightarrow} X \in \mathcal{C}^{\dfrac{1}{2}}([0,\infty);\RR^k) \text{ gleichmäßig bzgl. }t\geq 0,
 \end{eqnarray*}
 und es gilt für alle $0\leq t_1\leq t_2<\infty$:
 \begin{equation}
@@ -124,14 +124,14 @@ und es gilt für alle $0\leq t_1\leq t_2<\infty$:
 \newpage
 \section{Der approximierte Gradientenfluss der linearen Fokker-Planck-Gleichung}
 
-Die \textbf{lineare Fokker-Planck-Gleichung}  mit Potential ${V(x)\in \mathcal{C}^2(\RR^d)}$ und Anfangswert $\rho_0\in P_{ac}(\RR^d)$ ist gegeben durch:
+Die \textbf{lineare Fokker-Planck-Gleichung}  mit Potential ${V\in \mathcal{C}^2(\RR^d)}$ und Anfangswert $\rho_0\in P_{ac,2}(\RR^d)$ ist gegeben durch:
 \begin{align}\tag{FP}
 \begin{split}
 \dfrac{\partial\rho(x,t)}{\partial t}=\Delta\rho(x,t)+\nabla\cdot(\rho(x,t)\nabla V(x)),\\
 \rho(x,0)=\rho_0(x).\label{FP}
 \end{split}
 \end{align}
-Sei $T>0$. $\rho(\cdot,t)\in P_{ac}(\RR^d)$ erfüllt die (LFP) im schwachen Sinne, falls für alle $\psi\in \mathcal{C}_c^\infty(\RR^d)$ gilt:
+Sei $T>0$. $\rho(\cdot,t)\in P_{ac,2}(\RR^d)$ erfüllt die (LFP) im schwachen Sinne, falls für alle $\psi\in \mathcal{C}_c^\infty(\RR^d)$ gilt:
 \begin{equation}
 \int_{\RR^d} \int_0^T (\rho\Delta\psi+\rho\nabla V\cdot\nabla\psi -\rho\psi_t) dt dx=\int\rho_0\psi(x,0)dx \label{FPweak}
 \end{equation}
@@ -139,16 +139,16 @@ Sei $T>0$. $\rho(\cdot,t)\in P_{ac}(\RR^d)$ erfüllt die (LFP) im schwachen Sinn
 \vspace{10pt}
 
 \begin{defi}
-Für eine Wahrscheinlichkeitsdichte $\rho(x)\in P_{ac}(\RR^d)$ und ein Potential $V(x)\in L^1(\RR^d)$ sei das \textbf{Freie Energie Funktional $H(\rho)$} gegeben durch:
+Für eine Wahrscheinlichkeitsdichte $\rho(x)\in P_{ac,2}(\RR^d)$ und ein Potential $V\in L^1(\RR^d)$ sei das \textbf{Freie Energie Funktional $H(\rho)$} gegeben durch:
 \begin{equation}
 H(\rho):=\int_{\RR^d} \rho\log\rho~ dx + \int_{\RR^d}\rho V dx \label{FEFktn}
 \end{equation}
 \end{defi}
 \vspace{10pt}
-Behauptung/Interpretation: (FP) entspricht $\delta_t\rho = -\grad_{W_2} H(\rho)$
+Interpretation: (FP) entspricht $\dfrac{\partial\rho}{\partial t} = -\grad_{W_2} H(\rho)$
 
 \begin{theorem}
-Sei $V(x)\in \mathcal{C}^2(\RR^d)$ ein Potential, sodass $V(x)=O(\vert x \vert^2)$ für $x\to\infty$. \\
+Sei $V\in \mathcal{C}^2(\RR^d)$ ein Potential, sodass $V(x)=O(\vert x \vert^2)$ für $x\to\infty$. \\
 Sei $\rho_0\in P_{ac}(\RR^d)$ derart, dass für das Freie Energie Funktional gilt $H(\rho_0)<\infty$. Sei $\tau>0$.\\\\
 Sei außerdem $\bar{\rho}_\tau(x,t)$ der approximierte Gradientenfluss für $H(\rho)$ bzgl. der quadratischen Wassersteinmetrik. 
 Dann gilt: \\

@@ -160,21 +160,21 @@ Interpretation als kinetische Energie!
 Summation über (\ref{ineq1}), Teleskopsumme, Infimum da $E(X_\tau^n)$ monoton fallend. Infimum entweder über $X_\tau^n$ oder $X\in\RR^k$, möglich wegen unterer Schranke an Potential. 
 \end{proof}
 
-\begin{lem}[Hölder 1/2-Abschätzung für $X_\tau$]  $~~$ \\
+\begin{lem}[Hölder 1/2-Abschätzung für $\bar{X}_\tau$]  $~~$ \\
 Für $s<t$ gilt:
 \begin{eqnarray}
-\Vert \bar{X}_\tau(s)-\bar{X}_\tau(t)\Vert^2 \overset{1)}\leq \left[\dfrac{t-s}{\tau}+1\right] \sum_{\frac{s}{\tau}\leq n \leq \frac{t}{\tau}} \Vert X^n_\tau- X_\tau^{n+1}\Vert^2 \overset{2)}\leq 2(E(X^0)-\inf_X E)[(t-s)+\tau]. \label{Hölder}
+\Vert \bar{X}_\tau(s)-\bar{X}_\tau(t)\Vert^2 \overset{1)}\leq \left[\dfrac{t-s}{\tau}+1\right] \sum_{\frac{s}{\tau}-1\leq n \leq \frac{t}{\tau}-1} \Vert X^n_\tau- X_\tau^{n+1}\Vert^2 \overset{2)}\leq 2(E(X^0)-\inf_X E)[(t-s)+\tau]. \label{Hölder}
 \end{eqnarray}
 \end{lem}
 
 \begin{proof}
 \begin{itemize}
 \item[2)] folgt wiederum aus Aufsummation von (\ref{ineq1}) und Monotonie.
-\item[1)] Nach Definition: $X_\tau(s)=X_\tau^n$ für $s\in [n\tau,(n+1)\tau)$. Damit gilt für $n$: $n=\lfloor \frac{s}{	\tau}\rfloor$. Analog sei $X_\tau(t)=X_\tau^m$, $m=\lfloor\frac{t}{\tau}\rfloor$.\\
+\item[1)] Nach Definition: $\bar{X}_\tau(s)=X_\tau^n$ für $s\in [n\tau,(n+1)\tau)$. Damit gilt für $n$: $n=\lfloor \frac{s}{\tau}\rfloor$. Analog sei $\bar{X}_\tau(t)=X_\tau^m$, $m=\lfloor\frac{t}{\tau}\rfloor$.\\
 \begin{align*}
 \Vert \bar{X}_\tau(s)-\bar{X}_\tau(t)\Vert=&\Vert X_\tau^n-X_\tau^m\Vert \\\overset{\triangle -Ungl.}\leq&\Vert X_\tau^n-X_\tau^{n+1}\Vert+\Vert X_\tau^{n+1}-X_\tau^{n+2}\Vert+...+\Vert X_\tau^{m-1}-X_\tau^m\Vert\\
-=&\sum_{n\leq k\leq m-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert\\
-\Vert X_\tau(s)-X_\tau(t)\Vert^2\leq&\Bigg(\sum_{\frac{s}{\tau}\leq k\leq \frac{t}{\tau}}\Vert X_\tau^k-X_\tau^{k+1}\Vert\Bigg)^2 \\ \overset{CS}\leq&\Bigg(\sum_{\frac{s}{\tau}\leq k\leq \frac{t}{\tau}}\Vert X_\tau^k-X_\tau^{k+1}\Vert^2\Bigg)\underset{\frac{t}{\tau}-(\frac{s}{\tau}-1)}{\underbrace{\Bigg(\sum_{\frac{s}{\tau}\leq k\leq \frac{t}{\tau}}1\Bigg)}}
+=&\sum_{n\leq k\leq m-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert=\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert\\
+\Vert \bar{X}_\tau(s)-\bar{}X_\tau(t)\Vert^2\leq&\Bigg(\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert\Bigg)^2 \\ \overset{CS}\leq&\Bigg(\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}\Vert X_\tau^k-X_\tau^{k+1}\Vert^2\Bigg)\underset{\frac{t}{\tau}-(\frac{s}{\tau}-1)}{\underbrace{\Bigg(\sum_{\frac{s}{t}-1\leq k\leq \frac{t}{\tau}-1}1\Bigg)}}
 \end{align*}
 \end{itemize}
 \end{proof}
@@ -198,10 +198,21 @@ und es gilt für alle $0\leq t_1\leq t_2<\infty$:
 \end{cor}
 
 \begin{proof}
-Wir beginnen mit (\ref{approxgrad}) und summieren:\\
+Seien $t_1,t_2>0$. Wir beginnen mit (\ref{approxgrad}) und summieren von $n_1=\lfloor\frac{t_1}{\tau}\rfloor$ bis $n_2=\lfloor\frac{t_2}{\tau}\rfloor-1$:\\
+\begin{align}
+\sum_{n_1}^{n_2}\dfrac{1}{\tau} (X_\tau^{m+1}-X_\tau^m)\cdot\omega=\sum_{n_1}^{n_2}-\grad E(X_\tau^{m+1})\cdot\omega
+\end{align}
+Beachte für die rechte Seite, dass  
 \begin{align*}
-\grad E(X_\tau^{m+1})\cdot\omega= \dfrac{ X_\tau^{m+1}-X_\tau^m}{\tau}\cdot\omega
+-\grad E(X^n)=\dfrac{1}{\tau}\int_{n\tau}^{n\tau+\tau}.
 \end{align*}
+Damit haben wir - linke Seite Teleskopsumme -
+\begin{align}
+\dfrac{1}{\tau}(X_\tau^{n_2+1}-X_\tau^{n_1})\cdot\omega=\dfrac{1}{\tau}\int_{(n_1+1)\tau}^{(n_2+2)\tau}-\grad E(\bar{X}_\tau(t))\cdot\omega dt\\
+\Leftrightarrow (\bar{X}_\tau(t_2)-\bar{X}_\tau(t_1))\cdot\omega = \int_{t_1}^{t_2}-\grad E(\bar{X}_\tau(t))\cdot\omega dt+O(\tau),
+\end{align}
+wobei $O(\tau)$ daraus folgt, dass wir eine Integral über $<\tau$ eine (E glatt, endlich..) beschränkte Funktion bilden. 
+
 \end{proof}
 
  
